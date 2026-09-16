@@ -1,0 +1,50 @@
+name: Deploy to dev426248
+
+# Every push to main is deployed to the instance. This workflow is the only
+# thing that should ever run `now-sdk install`.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never let two deploys hit the same instance at once.
+concurrency:
+  group: deploy-dev426248
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # @types/ is gitignored, so regenerate the platform type definitions.
+      - name: Fetch platform type definitions
+        run: npx now-sdk dependencies
+        env:
+          SN_SDK_NODE_ENV: SN_SDK_CI_INSTALL
+          SN_SDK_INSTANCE_URL: https://dev426248.service-now.com
+          SN_SDK_USER: claude
+          SN_SDK_USER_PWD: ${{ secrets.SN_PASSWORD }}
+
+      # --frozenKeys fails the build if keys.ts is stale or uncommitted, which
+      # is what stops CI from minting new sys_ids and duplicating records.
+      # --errorOnConflict turns sys_id collisions into errors instead of warnings.
+      - name: Build
+        run: npx now-sdk build --frozenKeys --errorOnConflict
+
+      - name: Install on instance
+        run: npx now-sdk install
+        env:
+          SN_SDK_NODE_ENV: SN_SDK_CI_INSTALL
+          SN_SDK_INSTANCE_URL: https://dev426248.service-now.com
+          SN_SDK_USER: claude
+          SN_SDK_USER_PWD: ${{ secrets.SN_PASSWORD }}
