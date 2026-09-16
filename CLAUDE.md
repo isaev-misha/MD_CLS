@@ -73,11 +73,20 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 
 `now-sdk init` warns when a scope name does not carry it: *"Applications with non-matching prefixes
 may not install correctly on this instance."* A first scaffold used a bare `x_md_cls` and was
-discarded for this reason — **that stray app record still exists on the PDI
-(scopeId `4e186eae838c4aa0a1f47778e264aea4`) and should be deleted.**
+discarded and re-run for this reason.
 
 Note the sibling project at `../dev426248` uses a bare `x_dtf` and its notes claim the instance
 enforces no prefix. That is contradicted by SDK 4.12.2's own warning. Trust the warning.
+
+### `now-sdk init` does not create an instance record — `install` does
+
+The discarded `x_md_cls` scaffold left **nothing** on the PDI. Verified after the fact: both
+`sys_scope` and `sys_app` contained only an unrelated `VHS rent` app, and the scopeId `init`
+reported (`4e186eae838c4aa0a1f47778e264aea4`) returned *Record not found*. The scopeId is minted
+client-side and the app record materialises on the instance only at first `now-sdk install`.
+
+So a discarded scaffold needs no cleanup, and an app's absence from Application Manager before the
+first deploy is expected, not a fault.
 
 Scope names are capped at 18 characters.
 
@@ -127,10 +136,23 @@ No test or lint setup yet — add one when there is code worth testing.
 
 ## Node
 
-Local machine runs **Node 20.20.2** and has no `nvm`. CI pins **24** (`.nvmrc`, `setup-node`).
-`engines.node` is `>=20.18.0` — the SDK's actual floor — so local work does not trip warnings.
-Node 20 reached EOL 2026-04-30, so moving the laptop to 24 is worth doing; the CI pin is what the
-build is actually validated against.
+Local machine runs **Node 24.x** (upgraded 2026-09-16) and has no `nvm`. CI pins **24**
+(`.nvmrc`, `setup-node`). `engines.node` is `>=20.18.0` — the SDK's actual floor.
+
+### Do not `winget uninstall` an old Node package after installing a new one
+
+The winget IDs `OpenJS.NodeJS.20`, `OpenJS.NodeJS.LTS` and `OpenJS.NodeJS` all manage the **same**
+installation at `C:\Program Files\nodejs`, and Node's MSI upgrades in place via a shared upgrade
+code. Installing LTS over 20 therefore *replaces* it, and a follow-up
+`winget uninstall --id OpenJS.NodeJS.20` **deletes Node entirely** — this happened here and left the
+machine with no `node` or `npm` at all. Install the new package and stop.
+
+Also note `winget upgrade --id OpenJS.NodeJS.20` reports "No available upgrade found": that package
+ID is pinned to the 20.x line. Moving majors is always an *install* of a different package, never an
+upgrade.
+
+After any Node major change, re-run `npm install` — the SDK's native modules (`libxmljs2`,
+`@swc/core`) are built against the Node ABI.
 
 ## This is an SDK project, NOT a sn-scriptsync workspace
 
