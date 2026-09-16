@@ -9,9 +9,121 @@ declare global {
                         table: 'sys_module'
                         id: 'a0db6f4ab5ce40b7941e79cfa5ab8358'
                     }
+                    'br-create-geocode-review': {
+                        table: 'sys_script'
+                        id: '704851b6f13c4ffd9210a82cc02c00e4'
+                    }
+                    'crash-hero-clean': {
+                        table: 'x_2133493_cls_crash'
+                        id: 'e2f36978062841d6aea9c10c36636fba'
+                    }
+                    'crash-hero-fail': {
+                        table: 'x_2133493_cls_crash'
+                        id: 'a7a4f56b5f8244219922ee8ad2394999'
+                    }
+                    'crash-queue-1': {
+                        table: 'x_2133493_cls_crash'
+                        id: 'f36c963c16824ff3b193d5f44b4875f2'
+                    }
+                    'crash-queue-2': {
+                        table: 'x_2133493_cls_crash'
+                        id: '76226f521be649f894807d1f9b03ca1c'
+                    }
+                    'crash-queue-3': {
+                        table: 'x_2133493_cls_crash'
+                        id: '025a877727014ad19369100dc862c125'
+                    }
+                    'crash-queue-4': {
+                        table: 'x_2133493_cls_crash'
+                        id: 'a60f984292114319bc789067f65d00e0'
+                    }
+                    'crash-queue-5': {
+                        table: 'x_2133493_cls_crash'
+                        id: 'ab0e0ec9ebe441a7a665683e898926ae'
+                    }
+                    'crash-queue-6': {
+                        table: 'x_2133493_cls_crash'
+                        id: '4b97e25710b24e7e933491fbe0fff1f2'
+                    }
                     package_json: {
                         table: 'sys_module'
                         id: 'a4606e89c3aa4707b0c899d0f69b13e5'
+                    }
+                    'prop-lrs-radius': {
+                        table: 'sys_properties'
+                        id: '407a4e8496374469941e2c421b5f93c7'
+                    }
+                    'prop-lrs-timeout': {
+                        table: 'sys_properties'
+                        id: 'd7e2bc3a2c164871974c0702a2967baf'
+                    }
+                    'prop-lrs-url': {
+                        table: 'sys_properties'
+                        id: '86dbb2e39e9448e19445745b9d794a64'
+                    }
+                    'prop-review-threshold': {
+                        table: 'sys_properties'
+                        id: '63995bc5855948febef690310808d567'
+                    }
+                    'prop-snap-tolerance': {
+                        table: 'sys_properties'
+                        id: 'a312e747aa14474f90f3593ffeb43166'
+                    }
+                    'review-1': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: '8847aa6ac36448ffbf08f5c7bfa6e45d'
+                    }
+                    'review-2': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: '567047b368884e4183c62445ff1b50bd'
+                    }
+                    'review-3': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: 'fd84bf8c713d4d50b3d8c9410b5251af'
+                    }
+                    'review-4': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: '84d03d727e804bbd838888362cd0047b'
+                    }
+                    'review-5': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: 'a3a78f4aa37841cebd257a2fd669d53c'
+                    }
+                    'review-6': {
+                        table: 'x_2133493_cls_geocode_review'
+                        id: '14109eb9efdc427db03809a05fe7f0ce'
+                    }
+                    'si-crash-geocoder': {
+                        table: 'sys_script_include'
+                        id: '5aa23bd066d04bbfbcfbd7d182805731'
+                    }
+                    'si-lrs-client': {
+                        table: 'sys_script_include'
+                        id: '5e705c8317b54cd9bab39558e1f57e24'
+                    }
+                    src_server_CrashGeocoder_server_js: {
+                        table: 'sys_module'
+                        id: '466fab466e3c4b3b81e5b0e47c052b27'
+                    }
+                    src_server_CreateGeocodeReview_server_js: {
+                        table: 'sys_module'
+                        id: '269524f765aa46f6b28f197f05ab68f6'
+                    }
+                    src_server_LRSClient_server_js: {
+                        table: 'sys_module'
+                        id: 'be277b1fdd894395afe1efa28e4e5c79'
+                    }
+                    'ua-accept-candidate': {
+                        table: 'sys_ui_action'
+                        id: '24fe2064c0754a03ab0e4ff3cb6768e9'
+                    }
+                    'ua-apply-resolution': {
+                        table: 'sys_ui_action'
+                        id: 'cd8914090f5f4cc29e869600d67c7c09'
+                    }
+                    'ua-geocode-crash': {
+                        table: 'sys_ui_action'
+                        id: '321cd5bfbad5436f90ad54bc9908c5ac'
                     }
                 }
                 composite: [
