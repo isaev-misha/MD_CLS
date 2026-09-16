@@ -59,6 +59,60 @@ instance, which needs a real ArcGIS Online key or credits.
 
 Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT crash services.
 
+## What is built
+
+| Artifact | File | Does |
+|---|---|---|
+| `x_2133493_cls_crash` | `src/fluent/crash.now.ts` | Crash data. Plain table, **not** `task`. |
+| `x_2133493_cls_geocode_review` | `src/fluent/geocode-review.now.ts` | The exception queue. Extends `task`. |
+| `LRSClient` | `src/server/LRSClient.server.js` | Linear referencing against an ArcGIS feature service. |
+| `CrashGeocoder` | `src/server/CrashGeocoder.server.js` | The evidence ladder and confidence scoring. |
+| Create geocode review | `src/server/CreateGeocodeReview.server.js` | Opens one review per unplaceable crash. |
+| Geocode / Apply resolution / Accept candidate | `src/fluent/ui-actions.now.ts` | The three buttons the demo presses. |
+| 5 properties | `src/fluent/properties.now.ts` | Endpoint, radius, timeout, tolerance, threshold. |
+| 8 crashes + 6 reviews | `src/fluent/demo-data.now.ts` | Staged demo content (`installMethod: 'demo'`). |
+
+### The evidence ladder
+
+`CrashGeocoder` resolves in order of how trustworthy the evidence is: officer's
+route + milemarker → cruiser GPS snapped to the network → narrative address text →
+hand it to a person. Each rung records *how* it got there in `geocode_method`.
+
+**Snap distance is the confidence signal**, not a vague score. Four metres from the
+centreline means the point is on that road; 380 m means something is wrong with the
+point. `snap_tolerance_m` (default 50) is the single number that decides how big the
+review queue is.
+
+Two refusals are deliberate and should not be "fixed":
+
+- **Concurrent routes are not guessed at.** Where Route 9 and Route 30 share pavement,
+  one coordinate belongs to two `route_id`s. `resolveReportedRoute` returns
+  `ambiguous` rather than picking, and the crash goes to review.
+- **The address rung is not wired to a geocoding service.** Esri's public geocoder
+  permits anonymous calls for *display*, not for *storing* results — and this table
+  stores them. On the customer demo instance this needs a real ArcGIS key or an
+  Enterprise locator.
+
+### The candidate/resolved split
+
+The review carries `candidate_*` (what the geocoder guessed) separately from
+`resolved_*` (what the reviewer decided). `Accept candidate` copies one to the other
+but does **not** close the task; only `Apply resolution` writes back to the crash, and
+it stamps `geocode_method = manual`. A machine guess must never become the record of
+truth without a person in the path — that is the demo's whole argument, and collapsing
+these two field groups would destroy it.
+
+### Measures here are interpolated, not authoritative
+
+`LRSClient` interpolates measure between the vertices of a **published yearly extract**.
+A real LRS server uses calibration points, and where a road was realigned without
+re-stretching its measures the two disagree. MassDOT runs **ArcGIS Enterprise**, so
+production would call their LRS (`geometryToMeasure` / `measureToGeometry`) instead —
+which is why the endpoint is `x_2133493_cls.lrs.service_url` and not a constant.
+
+Say this out loud if asked in a demo. Claiming these measures are authoritative is the
+fastest way to lose a room that knows linear referencing.
+
 ## Instance and scope
 
 | | |
