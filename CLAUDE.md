@@ -154,6 +154,19 @@ upgrade.
 After any Node major change, re-run `npm install` — the SDK's native modules (`libxmljs2`,
 `@swc/core`) are built against the Node ABI.
 
+Verified on Node 24.19.0 / npm 11.17.0: `npm install` (lockfile unchanged), the `libxmljs2` native
+binding at `node_modules/libxmljs2/build/Release/xmljs.node`, `now-sdk dependencies -a dev426248`
+and `now-sdk build`. npm 11 warns that `@parcel/watcher`, `@swc/core` and `libxmljs2` have install
+scripts "not yet covered by allowScripts" — the scripts still run today, but expect that to become
+an error in a later npm.
+
+### `npm` fails in PowerShell, not in Git Bash
+
+`npm` from PowerShell can fail with *"npm.ps1 cannot be loaded because running scripts is disabled
+on this system"* — that is the machine's `ExecutionPolicy` blocking npm's PowerShell shim, not a
+broken install. Git Bash uses `npm.cmd` and is unaffected, so run npm from there. To fix PowerShell
+itself: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+
 ## This is an SDK project, NOT a sn-scriptsync workspace
 
 The user-level `~/.claude/CLAUDE.md` describes a different workflow — sn-scriptsync against the
