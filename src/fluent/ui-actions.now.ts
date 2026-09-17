@@ -147,7 +147,7 @@ UiAction({
     table: 'x_1000748_cls_crash',
     name: 'Reset demo',
     actionName: 'reset_crash_demo',
-    hint: 'Return the two hero crashes to Pending and clear their review tasks',
+    hint: 'Put every staged crash and review task back to its installed state',
     showInsert: false,
     // A form button needs showUpdate — without it the action never renders on a
     // saved record, whatever the form flags say. The script never touches
@@ -188,7 +188,7 @@ UiAction({
     script: `var outcome = new DemoReset().run();
 
 gs.addInfoMessage('Demo reset: ' + outcome.crashes + ' crash(es) back to Pending, ' +
-    outcome.reviews + ' review task(s) removed.');
+    outcome.reviews + ' review task(s) removed, ' + outcome.restored + ' staged record(s) restored.');
 
 if (outcome.missing.length) {
     gs.addErrorMessage('Not found on this instance: ' + outcome.missing.join(', ') +

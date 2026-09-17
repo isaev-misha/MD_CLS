@@ -53,6 +53,58 @@ declare global {
                         table: 'x_1000748_cls_crash'
                         id: '941a3ec7f41641abb9f287cc1856be20'
                     }
+                    'csp-glide-properties': {
+                        table: 'sys_scope_privilege'
+                        id: '634bced0c37745e9931af116839a149a'
+                    }
+                    'csp-glide-scripting': {
+                        table: 'sys_scope_privilege'
+                        id: 'a1b677bd40c2446db7dd85f86e199592'
+                    }
+                    'csp-gr-delete': {
+                        table: 'sys_scope_privilege'
+                        id: 'd17c739adf044c16926c200b85af4a7a'
+                    }
+                    'csp-gr-insert': {
+                        table: 'sys_scope_privilege'
+                        id: 'b83882dff5854348af021955ff6c3583'
+                    }
+                    'csp-gr-setvalue': {
+                        table: 'sys_scope_privilege'
+                        id: '603de3478b8b41a3bc1d01f9f4f91f89'
+                    }
+                    'csp-gr-update': {
+                        table: 'sys_scope_privilege'
+                        id: 'ec357ae602fe4e01be60aed802f778fa'
+                    }
+                    'csp-resource-support': {
+                        table: 'sys_scope_privilege'
+                        id: '54937e54fec34dbd80607eef653726e3'
+                    }
+                    'csp-rest-body': {
+                        table: 'sys_scope_privilege'
+                        id: '6d90d78c20d0480299e858194c74f839'
+                    }
+                    'csp-rest-endpoint': {
+                        table: 'sys_scope_privilege'
+                        id: '353a0895b2614cd69ac1bff116ba08c2'
+                    }
+                    'csp-rest-execute': {
+                        table: 'sys_scope_privilege'
+                        id: 'b1afa40f2cea45dbbc286a12655b3c8c'
+                    }
+                    'csp-rest-method': {
+                        table: 'sys_scope_privilege'
+                        id: 'ec547cac9b74416a9611c2a5a44037c7'
+                    }
+                    'csp-rest-status': {
+                        table: 'sys_scope_privilege'
+                        id: '054f148784c94792a1dfb060860b8a00'
+                    }
+                    'csp-rest-timeout': {
+                        table: 'sys_scope_privilege'
+                        id: '70331bdd98fd4de8b99518cf351c2efb'
+                    }
                     'menu-cls': {
                         table: 'sys_app_application'
                         id: 'c4cff3d20bd241c8a027469ee766d0b4'
