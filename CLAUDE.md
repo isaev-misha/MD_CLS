@@ -71,6 +71,47 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 | Geocode / Apply resolution / Accept candidate | `src/fluent/ui-actions.now.ts` | The three buttons the demo presses. |
 | 5 properties | `src/fluent/properties.now.ts` | Endpoint, radius, timeout, tolerance, threshold. |
 | 8 crashes + 6 reviews | `src/fluent/demo-data.now.ts` | Staged demo content (`installMethod: 'demo'`). |
+| `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience at `/now/crash-location/home`. |
+
+### The workspace is the reviewer's half of the story
+
+The navigator modules in `navigation.now.ts` are how an *admin* reaches the data. The workspace at
+`/now/crash-location/home` is how a *reviewer* works it — queue, record and evidence on one screen,
+with the next item one click away. Both are kept, because the demo shows both personas.
+
+Its left rail puts **Geocode review above Crashes**, deliberately. A GIS tool opens on a map of
+everything it placed; this opens on the work still outstanding. Reordering those two categories
+throws away the argument the whole app exists to make.
+
+Three Fluent APIs build it, and all three are required:
+
+| | |
+|---|---|
+| `Workspace` | `workspace.now.ts` — the route, plus the `ux_route` ACL that admits reviewers to it |
+| `UxListMenuConfig` | `list-menu.now.ts` — the left rail, the roles and the applicability |
+| `Dashboard` | `dashboard.now.ts` — the landing page. **Not optional**: without a dashboard bound by `visibilities`, `/home` renders empty |
+
+Four things that are easy to get wrong here:
+
+- **`Role` + `canvas_user` is what actually admits a user to a UX experience.** `x_1000748_cls.reviewer`
+  contains it; without that role a user passes the ACL and still gets an empty shell.
+- **The `ux_route` ACL takes `name`, not `table`/`field`.** The SDK's own workspace guide still shows
+  `table: 'now', field: '<path>.*'`; 4.12.2 warns both are deprecated for `ux_route` and *ignored*.
+  The value is the workspace path plus `.*` either way, and getting it wrong reads as a broken deploy
+  rather than a permissions problem.
+- **`javascript:gs.getUserID()` does not work in a workspace list condition.** The navigator modules use
+  it; the workspace list broker does not evaluate it. Use the OOB "Me" dynamic filter instead —
+  `assigned_toDYNAMIC90d1921e5f510100a9ad2572f2b477fe^EQ`.
+- **Fluent files are parsed, not executed.** Spreads, shorthand properties and helper arrow functions
+  are all compile errors (TS304/TS305), which is why `dashboard.now.ts` repeats every data source
+  longhand. Factoring it out will not build.
+
+One `Workspace({...})` call expands into roughly 20 records — `sys_ux_page_registry`, `sys_ux_app_config`,
+four routes, four screens and their screen types, a macroponent and seven page properties — each with its
+own derived key in `keys.ts`. That is normal; commit them.
+
+The review form a reviewer opens inside the workspace is the same declarative layout from
+`layouts.now.ts`, so the candidate/resolved split and its annotations carry over without being rebuilt.
 
 ### The evidence ladder
 

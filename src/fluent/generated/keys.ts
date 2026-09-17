@@ -177,6 +177,214 @@ declare global {
                         table: 'sys_ui_action'
                         id: '0b9b076bcfe543b69a54ebb958b277f5'
                     }
+                    'ws-applicability': {
+                        table: 'sys_ux_applicability'
+                        id: 'e4d4b5c36d7f4259ae10a2898da9a50a'
+                    }
+                    'ws-cat-crashes': {
+                        table: 'sys_ux_list_category'
+                        id: '039fe023f8d749fcb4b635f0f98cf90c'
+                    }
+                    'ws-cat-reviews': {
+                        table: 'sys_ux_list_category'
+                        id: '6682a33de60c4f07932075542cd8d68c'
+                    }
+                    'ws-crash-location': {
+                        table: 'sys_ux_page_registry'
+                        id: 'fffb7fa087b24309a6851ae5ab940e54'
+                    }
+                    'ws-crash-location_sys_ux_app_config_workspace': {
+                        table: 'sys_ux_app_config'
+                        id: 'd9dac8ac12604cdea76aae9972950731'
+                    }
+                    'ws-crash-location_sys_ux_app_route_home': {
+                        table: 'sys_ux_app_route'
+                        id: '2efdadce17a64877ace680ac58411243'
+                    }
+                    'ws-crash-location_sys_ux_app_route_list': {
+                        table: 'sys_ux_app_route'
+                        id: '9f2fb05789c54f538615af8a4ccf8a5a'
+                    }
+                    'ws-crash-location_sys_ux_app_route_record': {
+                        table: 'sys_ux_app_route'
+                        id: '1db69db73449448c8fb08f05e841dfa2'
+                    }
+                    'ws-crash-location_sys_ux_app_route_simple-list': {
+                        table: 'sys_ux_app_route'
+                        id: '5f1bb99113c349cd98f08901f704a583'
+                    }
+                    'ws-crash-location_sys_ux_macroponent_record': {
+                        table: 'sys_ux_macroponent'
+                        id: '308fd35795e64037873f95e821d820a1'
+                    }
+                    'ws-crash-location_sys_ux_page_property_chrome_footer': {
+                        table: 'sys_ux_page_property'
+                        id: 'ab1e9a5cedcc46039bbfe67f73b8b5ea'
+                    }
+                    'ws-crash-location_sys_ux_page_property_chrome_header': {
+                        table: 'sys_ux_page_property'
+                        id: '2362a658671b44c5bb26f8abb25813a8'
+                    }
+                    'ws-crash-location_sys_ux_page_property_chrome_tab': {
+                        table: 'sys_ux_page_property'
+                        id: '1f3040f5ad594404b54b9848c33c79d0'
+                    }
+                    'ws-crash-location_sys_ux_page_property_chrome_toolbar': {
+                        table: 'sys_ux_page_property'
+                        id: '2601d5185ac9416fbc5bb9dced581d27'
+                    }
+                    'ws-crash-location_sys_ux_page_property_listConfigId': {
+                        table: 'sys_ux_page_property'
+                        id: '6b74aecc26744d4f80ed5df25da2fde2'
+                    }
+                    'ws-crash-location_sys_ux_page_property_view': {
+                        table: 'sys_ux_page_property'
+                        id: 'd615866a2e034e319aee4d9dedea8da7'
+                    }
+                    'ws-crash-location_sys_ux_page_property_wbApplicabilityConfigId': {
+                        table: 'sys_ux_page_property'
+                        id: 'b87fee3f10dd433ba609c622df70c175'
+                    }
+                    'ws-crash-location_sys_ux_registry_m2m_category_unifiedNav': {
+                        table: 'sys_ux_registry_m2m_category'
+                        id: '4c8056c7a2684acaac16a8f113f49dd0'
+                    }
+                    'ws-crash-location_sys_ux_screen_home': {
+                        table: 'sys_ux_screen'
+                        id: '7a1feb1f85854258ae81f617e43805de'
+                    }
+                    'ws-crash-location_sys_ux_screen_list': {
+                        table: 'sys_ux_screen'
+                        id: '0960dab94967414180f44eea503544e8'
+                    }
+                    'ws-crash-location_sys_ux_screen_record': {
+                        table: 'sys_ux_screen'
+                        id: '4e0fe1e93002470c9707f8f53f98b5f1'
+                    }
+                    'ws-crash-location_sys_ux_screen_simple-list': {
+                        table: 'sys_ux_screen'
+                        id: 'a5c5f458232b432fb7a54e329e657bde'
+                    }
+                    'ws-crash-location_sys_ux_screen_type_home': {
+                        table: 'sys_ux_screen_type'
+                        id: '438a4e9beec7470f9e2d10afa4ac79a6'
+                    }
+                    'ws-crash-location_sys_ux_screen_type_list': {
+                        table: 'sys_ux_screen_type'
+                        id: '36f2de1b49784bad8a025a10a6660d21'
+                    }
+                    'ws-crash-location_sys_ux_screen_type_record': {
+                        table: 'sys_ux_screen_type'
+                        id: 'e6c39baf054a4fecb1c55c407942061d'
+                    }
+                    'ws-crash-location_sys_ux_screen_type_simple-list': {
+                        table: 'sys_ux_screen_type'
+                        id: 'd92b673073854807aff69fe3dfa0407e'
+                    }
+                    'ws-crash-location-acl': {
+                        table: 'sys_security_acl'
+                        id: '78cbeffaf3814a53bf19364582b3204f'
+                    }
+                    'ws-dash-tab-overview': {
+                        table: 'par_dashboard_tab'
+                        id: '296499f53c52415da75f5bf5d497c119'
+                    }
+                    'ws-dashboard': {
+                        table: 'par_dashboard'
+                        id: '335266305bf243bb9cc5ccf022d83e82'
+                    }
+                    'ws-list-config': {
+                        table: 'sys_ux_list_menu_config'
+                        id: '70515d7749f74dbd8e77f5b4c49cad10'
+                    }
+                    'ws-list-crashes-all': {
+                        table: 'sys_ux_list'
+                        id: '6c7d820df48c41b0be2269ab984d4f43'
+                    }
+                    'ws-list-crashes-all-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: 'a743174feae24bb1bdacacd501aabd22'
+                    }
+                    'ws-list-crashes-located': {
+                        table: 'sys_ux_list'
+                        id: 'cea61eaa0460499ea7877f5b4a0b1178'
+                    }
+                    'ws-list-crashes-located-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: 'c2fe86a56eda45148718ba06925b0f11'
+                    }
+                    'ws-list-crashes-needs-review': {
+                        table: 'sys_ux_list'
+                        id: 'c71267c064c04cfd83b74d74b3254272'
+                    }
+                    'ws-list-crashes-needs-review-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: '0d02c2f1a5e2481d98b7bd711e8d2425'
+                    }
+                    'ws-list-crashes-pending': {
+                        table: 'sys_ux_list'
+                        id: '08aef491b6c04fde8d0f7f018b7671c3'
+                    }
+                    'ws-list-crashes-pending-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: '0b5ab47145c54dd8b9a3dd0fe2c29156'
+                    }
+                    'ws-list-reviews-all': {
+                        table: 'sys_ux_list'
+                        id: 'e3fa1e80502740cab39fa0d8b969add8'
+                    }
+                    'ws-list-reviews-all-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: '5c8cf84013004f9989257ddd094bb0a5'
+                    }
+                    'ws-list-reviews-mine': {
+                        table: 'sys_ux_list'
+                        id: 'b31d78066c544ba88df89ed36557f9d7'
+                    }
+                    'ws-list-reviews-mine-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: 'e26ebef5fac14be38d96001955591e02'
+                    }
+                    'ws-list-reviews-open': {
+                        table: 'sys_ux_list'
+                        id: '652af20a658c4745b0692daba5e941a6'
+                    }
+                    'ws-list-reviews-open-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: '74d4eb89e3e849398ba624be252d53cf'
+                    }
+                    'ws-list-reviews-unassigned': {
+                        table: 'sys_ux_list'
+                        id: 'a9f4b87322c542968b68662fc748a97b'
+                    }
+                    'ws-list-reviews-unassigned-app': {
+                        table: 'sys_ux_applicability_m2m_list'
+                        id: '58a3840fedb844518cf7f74dc2ffa773'
+                    }
+                    'ws-w-crashes-by-method': {
+                        table: 'par_dashboard_widget'
+                        id: 'c738b4a04c8f4cd2b0fedba35739e01f'
+                    }
+                    'ws-w-crashes-by-state': {
+                        table: 'par_dashboard_widget'
+                        id: '7e6ace3d44094b01bfabc4677ca14d2c'
+                    }
+                    'ws-w-located': {
+                        table: 'par_dashboard_widget'
+                        id: '1931a6dcdf184f139c81ad37ea63a3c6'
+                    }
+                    'ws-w-needs-review': {
+                        table: 'par_dashboard_widget'
+                        id: '34948e87af514c5881ce66710a805541'
+                    }
+                    'ws-w-open-reviews': {
+                        table: 'par_dashboard_widget'
+                        id: '2c906c68dea740c491bbe638ef7cf51b'
+                    }
+                    'ws-w-reviews-by-reason': {
+                        table: 'par_dashboard_widget'
+                        id: '2776c6f857a548919738288423fcadea'
+                    }
                 }
                 composite: [
                     {
@@ -559,6 +767,27 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_security_acl_role'
+                        id: '2dc9f42b962141d590e07d42dd779ab3'
+                        key: {
+                            sys_security_acl: '78cbeffaf3814a53bf19364582b3204f'
+                            sys_user_role: {
+                                id: '448d6ceebe6048a2988fbfc0d89a5e3c'
+                                key: {
+                                    name: 'x_1000748_cls.reviewer'
+                                }
+                            }
+                        }
+                    },
+                    {
+                        table: 'par_dashboard_canvas'
+                        id: '2fac13e0b4e948b78beed3d8d830e1cc'
+                        key: {
+                            dashboard: '335266305bf243bb9cc5ccf022d83e82'
+                            dashboard_tab: '296499f53c52415da75f5bf5d497c119'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '35b10447ff42461c9da8c2c0171d6258'
                         key: {
@@ -751,6 +980,13 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_user_role'
+                        id: '448d6ceebe6048a2988fbfc0d89a5e3c'
+                        key: {
+                            name: 'x_1000748_cls.reviewer'
                         }
                     },
                     {
@@ -1152,6 +1388,24 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_user_role_contains'
+                        id: '76311da79ade410a8b26b8aea5935b98'
+                        key: {
+                            role: {
+                                id: '448d6ceebe6048a2988fbfc0d89a5e3c'
+                                key: {
+                                    name: 'x_1000748_cls.reviewer'
+                                }
+                            }
+                            contains: {
+                                id: 'a49757f1f00142d883c1878d40aee351'
+                                key: {
+                                    name: 'canvas_user'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_ui_list'
                         id: '763183065b3f477db4c138ecef04cb0a'
                         key: {
@@ -1318,6 +1572,24 @@ declare global {
                         key: {
                             logical_table_name: 'x_1000748_cls_crash'
                             col_name_string: 'geocode_state'
+                        }
+                    },
+                    {
+                        table: 'sys_user_role_contains'
+                        id: '8932ea706c16411c9593d46a7b12b042'
+                        key: {
+                            role: {
+                                id: 'be2f37f557434266902276a4b42e18b4'
+                                key: {
+                                    name: 'x_1000748_cls.workspace_admin'
+                                }
+                            }
+                            contains: {
+                                id: 'bfaee3938fc546b481a427a8c4810a72'
+                                key: {
+                                    name: 'canvas_admin'
+                                }
+                            }
                         }
                     },
                     {
@@ -1761,6 +2033,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_user_role'
+                        id: 'be2f37f557434266902276a4b42e18b4'
+                        key: {
+                            name: 'x_1000748_cls.workspace_admin'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'c04f3a2e8b00407d96b02473802c574c'
                         key: {
@@ -1944,6 +2223,19 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_security_acl_role'
+                        id: 'e1437185731d4b118e6eadf0ebfc5451'
+                        key: {
+                            sys_security_acl: '78cbeffaf3814a53bf19364582b3204f'
+                            sys_user_role: {
+                                id: 'be2f37f557434266902276a4b42e18b4'
+                                key: {
+                                    name: 'x_1000748_cls.workspace_admin'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'e2035a41dab44267a9a7282c5a95c666'
                         key: {
@@ -2057,6 +2349,14 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'route_id'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'par_dashboard_visibility'
+                        id: 'eea97ac5d35b46c6a7d43864dbd967d2'
+                        key: {
+                            dashboard: '335266305bf243bb9cc5ccf022d83e82'
+                            experience: 'fffb7fa087b24309a6851ae5ab940e54'
                         }
                     },
                     {
