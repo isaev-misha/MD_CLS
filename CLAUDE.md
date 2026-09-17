@@ -134,15 +134,23 @@ Two constraints that follow from it:
 - **A form button needs `showUpdate: true`** or it never renders on a saved record,
   whatever the form flags say.
 
-### `list.showButton` silently makes a list action require a selection
+### Through the SDK, a list UI action always demands a selection
 
-Reset demo answered **"No records selected"** — from the banner button, the related link
-and the bottom button, all three at once. `list.showButton` maps to `list_button`, which
-marks the action as operating on selected rows, and that is not scoped to the button it
-names: the platform generates one `listSubmit` handler and every entry point calls it.
-The tell is `class="selected_action"` on a button sitting in the list banner.
+Reset demo answered **"No records selected"** from every list rendering — banner
+button, related link and bottom button alike. Two rounds of fixing failed before the
+cause was clear, so it is written down here rather than rediscovered:
 
-A reset has nothing to select. Banner button, related link and context menu stand alone.
+- It is **not** `list.showButton` (`list_button`). Dropping that removed the bottom
+  button and changed nothing else.
+- It is `list_action`, which the platform reads as *action on selected records* — and
+  which the SDK derives from the **presence of a `list` block**. No property turns it
+  off. The tell in the DOM is `class="selected_action"` on a button sitting in the list
+  banner.
+
+So through `UiAction`, any list UI action requires a selection, and a demo reset has
+nothing to select. Reset demo is therefore a **form button** on any crash record
+(verified end to end) plus the workspace overflow menu. A working banner button would
+need a raw `Record({ table: 'sys_ui_action' })` with `list_action` false — untested.
 
 ### The demo borrows 13 cross-scope privileges
 

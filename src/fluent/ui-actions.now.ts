@@ -137,10 +137,14 @@ action.setRedirectURL(current);`,
 })
 
 /**
- * Reset demo — a list banner button on the crash table.
+ * Reset demo — a form button on any crash record.
  *
  * Not part of the demo itself; it is what makes the demo repeatable. Press it
- * between rehearsals so the second run looks exactly like the first.
+ * between rehearsals so the second run looks exactly like the first: all eight
+ * crashes and all six queue tasks go back to their installed state.
+ *
+ * It lives on the form rather than the list, which is not where you would put it
+ * by choice — see the note below.
  */
 UiAction({
     $id: Now.ID['ua-reset-demo'],
@@ -161,24 +165,29 @@ UiAction({
     // compatibility flags are the only route the SDK offers to `ui16_compatible`,
     // which it otherwise writes as false. Verified in the built XML.
     client: { isClient: false, isUi11Compatible: true, isUi16Compatible: true },
-    // `showButton` is deliberately absent. It maps to `list_button`, which makes
-    // this an action on SELECTED ROWS — and that poisons every other rendering:
-    // with it set, the banner button, the related link and the context-menu entry
-    // all route through the same generated listSubmit handler and answer
-    // "No records selected." Observed on the instance, on all three at once.
-    // A reset has nothing to select, so the banner button must stand alone.
-    list: {
-        showBannerButton: true,
-        showLink: true,
-        showContextMenu: true,
-    },
-    // Also a form button, because the list banner button alone could not be found
-    // on the instance. A UI action is only expressible in a configurable workspace
-    // as a form button — the SDK rejects `isConfigurableWorkspace` without one
-    // (TS112), and there is no workspace equivalent of a banner button. So the
-    // bench control rides on the record form, in the overflow menu rather than as
-    // a primary button: reachable in both UIs, without putting a destructive-
-    // sounding button next to Save in front of a customer.
+    // No `list` block, and that is the conclusion of three rounds of testing on
+    // the instance rather than a preference.
+    //
+    // Every list rendering of this action — banner button, related link, bottom
+    // button — answered "No records selected." Dropping `showButton`
+    // (`list_button`) removed the bottom button and changed nothing else. The
+    // cause is `list_action`, which the platform reads as "action on selected
+    // records" and which the SDK derives from the mere PRESENCE of a `list`
+    // block; there is no property that turns it off. So through this API a list
+    // UI action always demands a selection, and a demo reset has nothing to
+    // select.
+    //
+    // A banner button that works would need a raw Record({table:'sys_ui_action'})
+    // with list_action false — untested, and not worth a broken button in front
+    // of a customer. The form button below is verified working.
+    // The form button is the reset. Open any crash, press it — the script never
+    // touches `current`, so it resets the whole demo from wherever you are and
+    // lands you back on the crash list. Verified end to end on the instance.
+    //
+    // In the workspace it sits in the overflow menu rather than beside Save: a
+    // UI action can only exist in a configurable workspace as a form button (the
+    // SDK rejects `isConfigurableWorkspace` without one, TS112), and a bench
+    // control does not belong next to the buttons a customer is watching.
     form: {
         showButton: true,
         showLink: false,
