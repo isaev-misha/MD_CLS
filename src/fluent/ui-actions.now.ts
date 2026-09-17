@@ -161,13 +161,13 @@ UiAction({
     // compatibility flags are the only route the SDK offers to `ui16_compatible`,
     // which it otherwise writes as false. Verified in the built XML.
     client: { isClient: false, isUi11Compatible: true, isUi16Compatible: true },
-    // Offered three ways on purpose, because the banner button alone was reported
-    // missing from the crash list. Banner buttons sit in the list title row, where
-    // they are easy to lose; the related link under the list and the context-menu
-    // entry both render unconditionally. Belt and braces on the one control that
-    // has to work between two run-throughs.
+    // `showButton` is deliberately absent. It maps to `list_button`, which makes
+    // this an action on SELECTED ROWS — and that poisons every other rendering:
+    // with it set, the banner button, the related link and the context-menu entry
+    // all route through the same generated listSubmit handler and answer
+    // "No records selected." Observed on the instance, on all three at once.
+    // A reset has nothing to select, so the banner button must stand alone.
     list: {
-        showButton: true,
         showBannerButton: true,
         showLink: true,
         showContextMenu: true,
