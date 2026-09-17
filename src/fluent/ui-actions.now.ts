@@ -159,5 +159,7 @@ if (outcome.missing.length) {
         '. Re-deploy the demo data.');
 }
 
-action.setRedirectURL(current);`,
+// A list banner button has no 'current' record — redirect by URL, not by record,
+// or this throws the moment it is pressed.
+action.setRedirectURL('x_1000748_cls_crash_list.do');`,
 })

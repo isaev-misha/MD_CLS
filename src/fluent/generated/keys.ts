@@ -53,6 +53,38 @@ declare global {
                         table: 'x_1000748_cls_crash'
                         id: '941a3ec7f41641abb9f287cc1856be20'
                     }
+                    'menu-cls': {
+                        table: 'sys_app_application'
+                        id: 'c4cff3d20bd241c8a027469ee766d0b4'
+                    }
+                    'mod-crashes': {
+                        table: 'sys_app_module'
+                        id: '990f96583181463a9ba64a4531b0d3ca'
+                    }
+                    'mod-crashes-located': {
+                        table: 'sys_app_module'
+                        id: 'cb8da7e519544f6db763061269d8b1e5'
+                    }
+                    'mod-crashes-pending': {
+                        table: 'sys_app_module'
+                        id: 'c430febb507e4555b5c070b7a5495527'
+                    }
+                    'mod-reviews-all': {
+                        table: 'sys_app_module'
+                        id: 'eba7ae50b58d49d6afe2fe85f1bceb1e'
+                    }
+                    'mod-reviews-mine': {
+                        table: 'sys_app_module'
+                        id: '0b802f08d1c34cf7bc322a76aa036331'
+                    }
+                    'mod-reviews-open': {
+                        table: 'sys_app_module'
+                        id: '95e57ef314e042be9be42f1e7fbc5f3e'
+                    }
+                    'mod-sep-reviews': {
+                        table: 'sys_app_module'
+                        id: '8dbba4c56b1941d789e0fd7b2ea4675d'
+                    }
                     package_json: {
                         table: 'sys_module'
                         id: '776df8b5e3624cdea904f5b1a4db0640'
