@@ -41,8 +41,19 @@ jobs:
       - name: Build
         run: npx now-sdk build --frozenKeys --errorOnConflict
 
+      # On failure the install output is echoed back as an ::error:: annotation.
+      # Annotations are readable through the REST API without repo-admin rights,
+      # whereas raw job logs are not — so a failed deploy stays diagnosable from
+      # outside the GitHub UI. GitHub masks secrets in annotations as in logs.
       - name: Install on instance
-        run: npx now-sdk install
+        run: |
+          set +e
+          npx now-sdk install 2>&1 | tee install.log
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            echo "::error title=now-sdk install failed::$(tail -c 3000 install.log | tr '\n' ' ')"
+          fi
+          exit "$code"
         env:
           SN_SDK_NODE_ENV: SN_SDK_CI_INSTALL
           SN_SDK_INSTANCE_URL: https://dev412677.service-now.com
