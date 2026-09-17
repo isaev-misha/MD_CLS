@@ -136,17 +136,22 @@ application reproducible. Nothing had to be exported from the dead instance.
 
 Note the GitHub secret `SN_PASSWORD` did not change, since the new user reuses the old password.
 
-### The vendor prefix on dev426248 was `x_2133493_`
+### Vendor prefixes are per INSTANCE, not per developer account
 
-`now-sdk init` warns when a scope name does not carry it: *"Applications with non-matching prefixes
-may not install correctly on this instance."* A first scaffold used a bare `x_md_cls` and was
-discarded and re-run for this reason.
+Measured, not assumed: dev426248's prefix was `x_2133493_`; the replacement PDI **dev412677's is
+`x_1000748_`** — same developer, same account, different prefix. Do not expect a prefix to carry
+across instances.
 
-**Unverified on dev412677.** PDI vendor prefixes are issued per *developer account* rather than per
-instance, so the same developer's replacement PDI very likely keeps `x_2133493_` — but this has not
-been confirmed. If it differs, the scope name is baked into table names, property names, script
-include apiNames and the script bodies, and renaming is a real refactor rather than a config change.
-A failed install naming the prefix is how this would surface.
+`now-sdk init` warns when a scope name does not carry the instance prefix: *"Applications with
+non-matching prefixes may not install correctly on this instance."* A first scaffold used a bare
+`x_md_cls` and was discarded and re-run for this reason.
+
+The app's scope stays `x_2133493_cls` on dev412677 despite the mismatch, because the scope name is
+baked into table names, property names, script include apiNames and the script bodies — renaming is
+a real refactor, not a config change. `init` created the app anyway, so the warning is advisory.
+**If an install ever fails citing the prefix, the fix is a global `x_2133493_` → `x_<prefix>_`
+replace across `src/`, after which `keys.ts` regenerates with fresh sys_ids** (harmless on an
+instance the app has never been installed to, destructive on one where it has).
 
 Note the sibling project at `../dev426248` uses a bare `x_dtf` and its notes claim the instance
 enforces no prefix. That is contradicted by SDK 4.12.2's own warning. Trust the warning.
@@ -175,8 +180,32 @@ now-sdk init --appName "Crash Location Services" \
              --auth dev412677 --template base
 ```
 
-`--appName` has a 4-character minimum. `init` writes to the instance (it reserves the scope), so it
-should not be run again in this project.
+`--appName` has a 4-character minimum. `init` writes to the instance — it **registers the scope**,
+and `install` then looks the app up by the `scopeId` in `now.config.json`. On an instance where
+`init` has never run, install fails with *"Unable to install application as application was null"*.
+There is no `--create` flag on `install`; registering the scope once per instance is the only route.
+
+### The auth prompt needs a real TTY
+
+`now-sdk auth --add` masks its password prompt and reads from a terminal. Piping stdin, or running
+it through Claude Code's `!` prefix, fails with `ERROR: User force closed the prompt with 0 null`.
+It has to be run from an actual PowerShell or Git Bash window:
+
+```bash
+now-sdk auth --add https://<instance>.service-now.com --type basic --alias <instance>
+```
+
+The username prompt defaults to `admin`; this project's user is `claude`.
+
+To authenticate without storing anything — the only option when no human is at a console — use CI
+mode per command instead:
+
+```bash
+SN_SDK_NODE_ENV=SN_SDK_CI_INSTALL \
+SN_SDK_INSTANCE_URL=https://<instance>.service-now.com \
+SN_SDK_USER=claude SN_SDK_USER_PWD='<password>' \
+now-sdk <command>
+```
 
 ## Git-gated deployment
 
