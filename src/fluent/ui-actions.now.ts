@@ -143,11 +143,21 @@ UiAction({
     showUpdate: false,
     order: 300,
     active: true,
+    // Reads as a contradiction and is not one: `isClient: false` keeps this a
+    // server-side action (the emitted record still says client=false), and the two
+    // compatibility flags are the only route the SDK offers to `ui16_compatible`,
+    // which it otherwise writes as false. Verified in the built XML.
+    client: { isClient: false, isUi11Compatible: true, isUi16Compatible: true },
+    // Offered three ways on purpose, because the banner button alone was reported
+    // missing from the crash list. Banner buttons sit in the list title row, where
+    // they are easy to lose; the related link under the list and the context-menu
+    // entry both render unconditionally. Belt and braces on the one control that
+    // has to work between two run-throughs.
     list: {
         showButton: true,
         showBannerButton: true,
-        showLink: false,
-        showContextMenu: false,
+        showLink: true,
+        showContextMenu: true,
     },
     script: `var outcome = new DemoReset().run();
 
