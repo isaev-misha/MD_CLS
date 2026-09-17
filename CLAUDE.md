@@ -71,47 +71,100 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 | Geocode / Apply resolution / Accept candidate | `src/fluent/ui-actions.now.ts` | The three buttons the demo presses. |
 | 5 properties | `src/fluent/properties.now.ts` | Endpoint, radius, timeout, tolerance, threshold. |
 | 8 crashes + 6 reviews | `src/fluent/demo-data.now.ts` | Staged demo content (`installMethod: 'demo'`). |
-| `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience at `/now/crash-location/home`. |
+| `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience. **Does not route yet** — see below. |
 
-### The workspace is the reviewer's half of the story
+### The workspace does not route yet — open problem
 
-The navigator modules in `navigation.now.ts` are how an *admin* reaches the data. The workspace at
-`/now/crash-location/home` is how a *reviewer* works it — queue, record and evidence on one screen,
-with the next item one click away. Both are kept, because the demo shows both personas.
+`src/fluent/workspaces/crash-location/` declares a `Workspace`, a `UxListMenuConfig`
+and a `Dashboard`, it builds and installs cleanly, and **`/now/crash-location/home`
+returns "Page not found"** — every route, bare path included, for an admin.
 
-Its left rail puts **Geocode review above Crashes**, deliberately. A GIS tool opens on a map of
-everything it placed; this opens on the work still outstanding. Reordering those two categories
-throws away the argument the whole app exists to make.
+Do not spend the afternoon looking for a missing record. Verified present, in scope,
+active and correctly cross-linked on dev412677: the page registry, the app config
+(`landing_path=home`), four UX app routes, four screens each with a Page Definition,
+four screen types, the root macroponent ("Workspace App Shell"). The registry record
+is field-for-field identical to the working CMDB workspace apart from its own ids.
 
-Three Fluent APIs build it, and all three are required:
+Also ruled out, each by measurement:
 
-| | |
-|---|---|
-| `Workspace` | `workspace.now.ts` — the route, plus the `ux_route` ACL that admits reviewers to it |
-| `UxListMenuConfig` | `list-menu.now.ts` — the left rail, the roles and the applicability |
-| `Dashboard` | `dashboard.now.ts` — the landing page. **Not optional**: without a dashboard bound by `visibilities`, `/home` renders empty |
+- **Roles** — the `claude` user has `admin`, `x_1000748_cls.reviewer` and `canvas_user`.
+- **Cache** — flushed via `/cache.do`, no change.
+- **The URL pattern** — `/now/cmdb/home`, `/now/ef-demo/home`, `/now/app-manager/home`
+  and two other custom experiences all resolve. Ours is uniquely unreachable.
+- **The 404 itself** — it is the *classic* not-found page (27 KB, `notfound_message`),
+  not the UX router's. A resolving experience returns ~160-380 KB. So the platform
+  never recognises `crash-location` as a UX path at all.
 
-Four things that are easy to get wrong here:
+UI Builder opens the experience with an empty canvas, which points at the record graph
+rather than at routing config, but nothing in that graph is visibly wrong.
 
-- **`Role` + `canvas_user` is what actually admits a user to a UX experience.** `x_1000748_cls.reviewer`
-  contains it; without that role a user passes the ACL and still gets an empty shell.
-- **The `ux_route` ACL takes `name`, not `table`/`field`.** The SDK's own workspace guide still shows
-  `table: 'now', field: '<path>.*'`; 4.12.2 warns both are deprecated for `ux_route` and *ignored*.
-  The value is the workspace path plus `.*` either way, and getting it wrong reads as a broken deploy
-  rather than a permissions problem.
-- **`javascript:gs.getUserID()` does not work in a workspace list condition.** The navigator modules use
-  it; the workspace list broker does not evaluate it. Use the OOB "Me" dynamic filter instead —
-  `assigned_toDYNAMIC90d1921e5f510100a9ad2572f2b477fe^EQ`.
-- **Fluent files are parsed, not executed.** Spreads, shorthand properties and helper arrow functions
-  are all compile errors (TS304/TS305), which is why `dashboard.now.ts` repeats every data source
-  longhand. Factoring it out will not build.
+**Next step when this is picked up:** build a throwaway workspace through the platform's
+own UI, then diff its `sys_ux_*` records against ours. That gives ground truth on what
+the SDK's `Workspace` plugin does not emit, which is the only remaining theory.
 
-One `Workspace({...})` call expands into roughly 20 records — `sys_ux_page_registry`, `sys_ux_app_config`,
-four routes, four screens and their screen types, a macroponent and seven page properties — each with its
-own derived key in `keys.ts`. That is normal; commit them.
+One thing that WAS wrong and is now fixed, though it did not fix the routing: the
+`ux_route` ACL name. Every OOB one is `now.<path>.*` — `now.assetworkspace.*`,
+`now.app-manager.*`. The SDK's workspace guide still shows the deprecated
+`table: 'now'` + `field: '<path>.*'` pair and warns both are ignored for `ux_route`;
+translating that to `name` means carrying the prefix across, because `table` **was**
+the `now.` prefix. A non-matching name means no rule allows the route, and the failure
+looks exactly like the one above — including for admin, since `adminOverrides` only
+applies to an ACL that is actually consulted.
 
-The review form a reviewer opens inside the workspace is the same declarative layout from
-`layouts.now.ts`, so the candidate/resolved split and its annotations carry over without being rebuilt.
+### UI actions do not appear in a configurable workspace unless flagged
+
+A configurable workspace renders **none** of a table's UI actions unless the record
+carries `format_for_configurable_workspace`. The classic form flags do not imply it, so
+Geocode, Apply resolution and Accept candidate were all invisible in a workspace record
+page that showed only Save and Delete.
+
+The SDK exposes this as a `workspace` block the API docs do not mention — found by
+reading the field mapping in the shipped bundle:
+
+```ts
+workspace: { isConfigurableWorkspace: true, showFormButtonV2: true }
+```
+
+Two constraints that follow from it:
+
+- **A workspace UI action can only BE a form button.** The SDK rejects
+  `isConfigurableWorkspace` without `showFormButtonV2` or `showFormMenuButtonV2`
+  (TS112); there is no workspace equivalent of a list banner button. A list-wide action
+  like Reset demo therefore needs a form home to exist in a workspace at all.
+- **A form button needs `showUpdate: true`** or it never renders on a saved record,
+  whatever the form flags say.
+
+### `list.showButton` silently makes a list action require a selection
+
+Reset demo answered **"No records selected"** — from the banner button, the related link
+and the bottom button, all three at once. `list.showButton` maps to `list_button`, which
+marks the action as operating on selected rows, and that is not scoped to the button it
+names: the platform generates one `listSubmit` handler and every entry point calls it.
+The tell is `class="selected_action"` on a button sitting in the list banner.
+
+A reset has nothing to select. Banner button, related link and context menu stand alone.
+
+### The demo borrows 13 cross-scope privileges
+
+Everything the app does at runtime reaches from `x_1000748_cls` into global: the REST
+client that calls the Road Inventory, the GlideRecord verbs, `gs.*`, `gs.getProperty`.
+The PDI granted all 13 silently on first use and flashed three blue banners across the
+crash list mid-reset. `src/fluent/cross-scope.now.ts` now declares them — read off the
+instance after a full run-through, not guessed. An instance that does not auto-grant
+fails silently instead: no route from the geocoder, nothing deleted by the reset.
+
+### Reset demo covers the whole demo, and the ordering matters
+
+It used to reset only the two hero crashes, which left the review-queue scenes
+un-repeatable — one press of Apply resolution in rehearsal and CRSH0001031 stays
+`manual`/Located and GCR0001002 stays closed for good.
+
+`DemoReset` now restores all eight crashes and all six queue tasks. **Reviews are
+reopened before their crashes go back to `needs_review`**, because `CreateGeocodeReview`
+skips a crash that already has an active review; the other way round, every reset stacks
+a second review onto every backlog crash. Its values duplicate `demo-data.now.ts` — the
+two must be changed together, since there is no runtime handle on the installed demo
+records to read them back from.
 
 ### The evidence ladder
 
