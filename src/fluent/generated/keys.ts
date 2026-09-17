@@ -5,6 +5,14 @@ declare global {
         namespace Internal {
             interface Keys extends KeysRegistry {
                 explicit: {
+                    'ann-candidate': {
+                        table: 'sys_ui_annotation'
+                        id: 'fcc77716cbb7462c9e6e1d38b4ea0486'
+                    }
+                    'ann-resolved': {
+                        table: 'sys_ui_annotation'
+                        id: '20dcbab4e2784e669d1dafbb93fdcb51'
+                    }
                     bom_json: {
                         table: 'sys_module'
                         id: '6ab8d8e815164cd381a5f20e0abd33dd'
@@ -140,12 +148,79 @@ declare global {
                 }
                 composite: [
                     {
+                        table: 'sys_ui_list_element'
+                        id: '02b3dacf5c06483cafe71904277f4fe8'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'geocode_state'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '0406d1720b8b4703bfaab6796b39aa0d'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'NULL'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '04d61a71c6c5405fa649ffaa1134479a'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'short_description'
+                            position: '4'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '063c0d357dc1428e8ba203bbc3a59812'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '1'
                         }
                     },
                     {
@@ -157,6 +232,84 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '07c02eed460c4b2b8ec2116b180ecfa1'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '5'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '097f2924e0b74f4e84d280e22ac52acd'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'priority'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_form_section'
+                        id: '0c1db6195e864d9caf4126ca35ad0e2b'
+                        key: {
+                            sys_ui_form: {
+                                id: 'acb6f396f62b4bc98b971e3691cdfd95'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: '0c90999783a1416aa1d779a7c4f14393'
                         key: {
@@ -165,6 +318,52 @@ declare global {
                             value: 'officer_lrs'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '0d4b7f20e05e45b6bb57500ea91db513'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '0d4d762e5ef64ba9938cf6ac06855141'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'number'
                         }
                     },
                     {
@@ -199,6 +398,29 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'location_text'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '1483d4c3dacb447987384ff029669007'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'geocode_confidence'
                         }
                     },
                     {
@@ -251,6 +473,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '1fe7c181e82f4aac815c9b711365fabc'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'state'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '285f00dd814d4c2b9edb197c877fc251'
                         key: {
@@ -260,11 +505,66 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '292f49d531dc4224b03df211edf35f25'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'candidate_measure'
+                            position: '5'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '35b10447ff42461c9da8c2c0171d6258'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'geocode_message'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_form_section'
+                        id: '367aa86cd6374e2bb278bc4dfac5b925'
+                        key: {
+                            sys_ui_form: {
+                                id: 'acb6f396f62b4bc98b971e3691cdfd95'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: '7c605f6005ba45bca8ffea87ab4d7041'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Notes'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
                         }
                     },
                     {
@@ -290,6 +590,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '374618f1fa4542a1bc943bc960fbcebf'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'priority'
+                            position: '8'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: '38f3014b157e44d290f86967fe01b087'
                         key: {
@@ -306,6 +628,39 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_form_section'
+                        id: '3bd26d701179402897cdcdce7c4f4176'
+                        key: {
+                            sys_ui_form: {
+                                id: 'acb6f396f62b4bc98b971e3691cdfd95'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '3d8fbd15ca0d46038f959e5b93aac5e1'
                         key: {
@@ -315,11 +670,100 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '413892fb6e3a49789bd3aa75f8bed6ee'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '10'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '418cbba22b844f43aa42c2bd584c60d0'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'candidate_street'
+                            position: '3'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '42934593ed054e7ebb4db9ff5745a774'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '4499596df6be4e0fbcf7de965a21d560'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'crash'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '4aa0759351ef410381d86d1d4529edb5'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '1'
                         }
                     },
                     {
@@ -339,12 +783,56 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '4c73ca20c48d4c89bc98d459348947db'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'state'
+                            position: '6'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '553d1f971e294e2e9a070e628b74d420'
                         key: {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'resolution_note'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '580db4f2d42349018a8b67acfa620a62'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'candidate_score'
+                            position: '6'
                         }
                     },
                     {
@@ -359,12 +847,57 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '5cc4ec044bbf4c129f954b595567a689'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'opened_at'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '5d6778d1b87b471e9e58bd83310b1cec'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'municipality'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '5e9d319ac6fd43bb9f48ed1211231f10'
+                        key: {
+                            sys_ui_section: {
+                                id: '7c605f6005ba45bca8ffea87ab4d7041'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Notes'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'work_notes'
+                            position: '1'
                         }
                     },
                     {
@@ -390,6 +923,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'latitude'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '6383fdcdd30f40fa9957bec491f3859d'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '6'
                         }
                     },
                     {
@@ -426,12 +981,78 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '685c30625b5d40a789130a5959440a9c'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'candidate_route_id'
+                            position: '2'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '6d055c1755ac47faa8bd4c87ca32a20e'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'assigned_to'
+                            position: '7'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '6e0501a516b542cb9ef047005e3cf401'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'number'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '713da24f5a364780a520353d386217f1'
+                        key: {
+                            sys_ui_section: {
+                                id: '7c605f6005ba45bca8ffea87ab4d7041'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Notes'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'description'
+                            position: '0'
                         }
                     },
                     {
@@ -446,6 +1067,50 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '736dd2e1c7a04fef803f23f5f1c965bb'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '0'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '74c07521d4984477bb4885952fb6c07d'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '4'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '751386c9bbc948d48460562327875993'
                         key: {
@@ -455,12 +1120,112 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list'
+                        id: '763183065b3f477db4c138ecef04cb0a'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                            element: 'NULL'
+                            relationship: 'NULL'
+                            parent: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '7b7302e97c924016889c5d38be3cdb74'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'reason'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: '7c605f6005ba45bca8ffea87ab4d7041'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            caption: 'Notes'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '7d20ca6a63a241358f30b2d1c928d898'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'opened_at'
+                            position: '9'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '7ed3f48c19fe43c7aa1362ec96dfbf9f'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'reported_route'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '7f64e223894b42988780ea206763f62f'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'measure'
                         }
                     },
                     {
@@ -480,6 +1245,28 @@ declare global {
                             value: 'no_location_data'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '85e6bcb2fcc4478cb996c50806f954d5'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'fcc77716cbb7462c9e6e1d38b4ea0486'
+                            position: '0'
                         }
                     },
                     {
@@ -509,6 +1296,46 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list'
+                        id: '8cecf19e7ffa463fb77b5f334d218301'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                            element: 'NULL'
+                            relationship: 'NULL'
+                            parent: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '8dfe49b620c24fe28b8b13e06a25eba4'
+                        key: {
+                            list_id: {
+                                id: '8cecf19e7ffa463fb77b5f334d218301'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'assigned_to'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '8e40f2f64e974d5285c6f9aa13e76e1b'
                         key: {
@@ -522,6 +1349,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'candidate_route_id'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '8ecdb996364f45359a6aaab035f0dc00'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '4'
                         }
                     },
                     {
@@ -579,6 +1428,72 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '9eed360b6b7241bd85b101875e5023d0'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the geocoder proposed'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '7'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '9f74ba4062094395a6bdadad6d3fedf9'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'crash'
+                            position: '2'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'a12f4cc6f7ec4b24a26b35a7d68f1fa9'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '20dcbab4e2784e669d1dafbb93fdcb51'
+                            position: '0'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'a2fb48e74aa54af0b57493a0d92903d1'
                         key: {
@@ -603,6 +1518,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'a6a3cc1e44724d6d80714a795568e95b'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'location_text'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'a78c7f27254c48c2bb0e286b73df791a'
                         key: {
@@ -617,6 +1555,75 @@ declare global {
                         key: {
                             logical_table_name: 'x_1000748_cls_crash'
                             col_name_string: 'route_id,measure'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_form'
+                        id: 'acb6f396f62b4bc98b971e3691cdfd95'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_form_section'
+                        id: 'ace4d2439dac4681a0d88bc97c91af6e'
+                        key: {
+                            sys_ui_form: {
+                                id: 'acb6f396f62b4bc98b971e3691cdfd95'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'b1152cd12839449695b5fe41a3f69084'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'reason'
+                            position: '3'
                         }
                     },
                     {
@@ -640,11 +1647,56 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'b56e05e0a0a245b18bb54839ba0e9087'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'route_id'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'b6533b323b104720803493ee124381b8'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'municipality'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'b8771e8704914a3a8cff5a11abe5793e'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'resolved_route_id'
+                            position: '2'
                         }
                     },
                     {
@@ -694,6 +1746,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'c14a4c7f05ef4dfc8dfd2168204c6641'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'resolution_note'
+                            position: '3'
+                        }
+                    },
+                    {
                         table: 'sys_number'
                         id: 'c36bc30b1b234f68b333f2bd637a0b96'
                         key: {
@@ -716,6 +1790,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'caf1bdbd7c1e4658bb2921c17d765138'
+                        key: {
+                            sys_ui_section: {
+                                id: 'fe0453c88d074d12a039646aea40ca46'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'What the reviewer decided'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'resolved_measure'
+                            position: '5'
                         }
                     },
                     {
@@ -753,6 +1849,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'd491eb9a46194aaca1ae4ed7b24d3fe9'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'snap_distance_m'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'd9dd2a97ea6d4f22a92f4315cfd1443c'
                         key: {
@@ -767,6 +1886,29 @@ declare global {
                         key: {
                             category: 'x_1000748_cls_crash'
                             prefix: 'CRSH'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'ded1c4849ff044c99f1211082196dc73'
+                        key: {
+                            list_id: {
+                                id: '763183065b3f477db4c138ecef04cb0a'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'crash_datetime'
                         }
                     },
                     {
@@ -788,6 +1930,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'e3bc2f94b3f64ae49f20526839fd9321'
+                        key: {
+                            sys_ui_section: {
+                                id: 'ea392c4b269043a18119d7917454fa29'
+                                key: {
+                                    name: 'x_1000748_cls_geocode_review'
+                                    caption: 'Review'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'number'
+                            position: '1'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: 'e53b63b0e93d49ce8543e585f85db850'
                         key: {
@@ -800,6 +1964,36 @@ declare global {
                         id: 'e6e126d927cc48ccb3df10baed77e488'
                         key: {
                             name: 'x_1000748_cls_geocode_review'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: 'ea392c4b269043a18119d7917454fa29'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            caption: 'Review'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: 'ebbadbf19f614aba9a6b4fd8a24a6ddc'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            caption: 'What the geocoder proposed'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
                         }
                     },
                     {
@@ -848,6 +2042,21 @@ declare global {
                         key: {
                             logical_table_name: 'x_1000748_cls_geocode_review'
                             col_name_string: 'crash'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: 'fe0453c88d074d12a039646aea40ca46'
+                        key: {
+                            name: 'x_1000748_cls_geocode_review'
+                            caption: 'What the reviewer decided'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
                         }
                     },
                 ]
