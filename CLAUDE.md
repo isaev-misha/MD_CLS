@@ -117,17 +117,36 @@ fastest way to lose a room that knows linear referencing.
 
 | | |
 |---|---|
-| Instance | `https://dev426248.service-now.com` (PDI) |
-| SDK credential alias | `dev426248` (the default profile; basic auth, user `claude`, has admin) |
+| Instance | `https://dev412677.service-now.com` (PDI) |
+| SDK credential alias | `dev412677` (the default profile; basic auth, user `claude`, has admin) |
 | Scope | `x_2133493_cls` |
 | scopeId | `d370c6491a0245c89576112b0d312e86` |
 | App name | `Crash Location Services` |
 
-### The instance vendor prefix is `x_2133493_`
+### Instance moved 2026-09-17 — dev426248 → dev412677
+
+The original PDI **dev426248 broke** (HTTP 502) and was replaced by `dev412677` with the same
+`claude` user and password. Only `.github/workflows/deploy.yml` needed changing; everything else in
+this repo is instance-independent.
+
+**The app was rebuilt from git, not migrated.** That works because `src/fluent/generated/keys.ts`
+pins every sys_id, so `now-sdk install` recreates the app on any instance with identical record
+identity — the same discipline that stops CI duplicating records is also what makes the whole
+application reproducible. Nothing had to be exported from the dead instance.
+
+Note the GitHub secret `SN_PASSWORD` did not change, since the new user reuses the old password.
+
+### The vendor prefix on dev426248 was `x_2133493_`
 
 `now-sdk init` warns when a scope name does not carry it: *"Applications with non-matching prefixes
 may not install correctly on this instance."* A first scaffold used a bare `x_md_cls` and was
 discarded and re-run for this reason.
+
+**Unverified on dev412677.** PDI vendor prefixes are issued per *developer account* rather than per
+instance, so the same developer's replacement PDI very likely keeps `x_2133493_` — but this has not
+been confirmed. If it differs, the scope name is baked into table names, property names, script
+include apiNames and the script bodies, and renaming is a real refactor rather than a config change.
+A failed install naming the prefix is how this would surface.
 
 Note the sibling project at `../dev426248` uses a bare `x_dtf` and its notes claim the instance
 enforces no prefix. That is contradicted by SDK 4.12.2's own warning. Trust the warning.
@@ -153,7 +172,7 @@ prompt at a time; `init --help` itself hangs:
 now-sdk init --appName "Crash Location Services" \
              --scopeName x_2133493_cls \
              --packageName "md-cls" \
-             --auth dev426248 --template base
+             --auth dev412677 --template base
 ```
 
 `--appName` has a 4-character minimum. `init` writes to the instance (it reserves the scope), so it
@@ -180,12 +199,12 @@ turns a stale or missing keys file into a failed build.
 
 ```bash
 npm install                       # or npm ci
-npx now-sdk dependencies -a dev426248   # regenerates gitignored @types/
+npx now-sdk dependencies -a dev412677   # regenerates gitignored @types/
 npx now-sdk build                 # compile src/fluent -> installable package
 npx now-sdk explain <topic>       # Fluent SDK documentation
 ```
 
-Verified working as of scaffold: `npm install`, `now-sdk dependencies -a dev426248`, `now-sdk build`.
+Verified working as of scaffold: `npm install`, `now-sdk dependencies -a dev412677`, `now-sdk build`.
 No test or lint setup yet — add one when there is code worth testing.
 
 ## Node
@@ -209,7 +228,7 @@ After any Node major change, re-run `npm install` — the SDK's native modules (
 `@swc/core`) are built against the Node ABI.
 
 Verified on Node 24.19.0 / npm 11.17.0: `npm install` (lockfile unchanged), the `libxmljs2` native
-binding at `node_modules/libxmljs2/build/Release/xmljs.node`, `now-sdk dependencies -a dev426248`
+binding at `node_modules/libxmljs2/build/Release/xmljs.node`, `now-sdk dependencies -a dev412677`
 and `now-sdk build`. npm 11 warns that `@parcel/watcher`, `@swc/core` and `libxmljs2` have install
 scripts "not yet covered by allowScripts" — the scripts still run today, but expect that to become
 an error in a later npm.

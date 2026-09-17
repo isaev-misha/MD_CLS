@@ -1,4 +1,4 @@
-name: Deploy to dev426248
+name: Deploy to dev412677
 
 # Every push to main is deployed to the instance. This workflow is the only
 # thing that should ever run `now-sdk install`.
@@ -9,7 +9,7 @@ on:
 
 # Never let two deploys hit the same instance at once.
 concurrency:
-  group: deploy-dev426248
+  group: deploy-dev412677
   cancel-in-progress: false
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
         run: npx now-sdk dependencies
         env:
           SN_SDK_NODE_ENV: SN_SDK_CI_INSTALL
-          SN_SDK_INSTANCE_URL: https://dev426248.service-now.com
+          SN_SDK_INSTANCE_URL: https://dev412677.service-now.com
           SN_SDK_USER: claude
           SN_SDK_USER_PWD: ${{ secrets.SN_PASSWORD }}
 
@@ -45,6 +45,6 @@ jobs:
         run: npx now-sdk install
         env:
           SN_SDK_NODE_ENV: SN_SDK_CI_INSTALL
-          SN_SDK_INSTANCE_URL: https://dev426248.service-now.com
+          SN_SDK_INSTANCE_URL: https://dev412677.service-now.com
           SN_SDK_USER: claude
           SN_SDK_USER_PWD: ${{ secrets.SN_PASSWORD }}
