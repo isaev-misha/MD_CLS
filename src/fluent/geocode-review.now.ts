@@ -12,8 +12,8 @@ import { Table, StringColumn, ChoiceColumn, IntegerColumn, FloatColumn, Referenc
  * One review per crash that the geocoder could not place confidently. The crash
  * keeps its own geocode_state; this table tracks the human effort to fix it.
  */
-export const x_2133493_cls_geocode_review = Table({
-    name: 'x_2133493_cls_geocode_review',
+export const x_1000748_cls_geocode_review = Table({
+    name: 'x_1000748_cls_geocode_review',
     label: 'Geocode Review',
     extends: 'task',
     audit: true,
@@ -25,7 +25,7 @@ export const x_2133493_cls_geocode_review = Table({
     schema: {
         crash: ReferenceColumn({
             label: 'Crash',
-            referenceTable: 'x_2133493_cls_crash',
+            referenceTable: 'x_1000748_cls_crash',
             mandatory: true,
         }),
         reason: ChoiceColumn({

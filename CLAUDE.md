@@ -63,8 +63,8 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 
 | Artifact | File | Does |
 |---|---|---|
-| `x_2133493_cls_crash` | `src/fluent/crash.now.ts` | Crash data. Plain table, **not** `task`. |
-| `x_2133493_cls_geocode_review` | `src/fluent/geocode-review.now.ts` | The exception queue. Extends `task`. |
+| `x_1000748_cls_crash` | `src/fluent/crash.now.ts` | Crash data. Plain table, **not** `task`. |
+| `x_1000748_cls_geocode_review` | `src/fluent/geocode-review.now.ts` | The exception queue. Extends `task`. |
 | `LRSClient` | `src/server/LRSClient.server.js` | Linear referencing against an ArcGIS feature service. |
 | `CrashGeocoder` | `src/server/CrashGeocoder.server.js` | The evidence ladder and confidence scoring. |
 | Create geocode review | `src/server/CreateGeocodeReview.server.js` | Opens one review per unplaceable crash. |
@@ -108,7 +108,7 @@ these two field groups would destroy it.
 A real LRS server uses calibration points, and where a road was realigned without
 re-stretching its measures the two disagree. MassDOT runs **ArcGIS Enterprise**, so
 production would call their LRS (`geometryToMeasure` / `measureToGeometry`) instead —
-which is why the endpoint is `x_2133493_cls.lrs.service_url` and not a constant.
+which is why the endpoint is `x_1000748_cls.lrs.service_url` and not a constant.
 
 Say this out loud if asked in a demo. Claiming these measures are authoritative is the
 fastest way to lose a room that knows linear referencing.
@@ -119,22 +119,26 @@ fastest way to lose a room that knows linear referencing.
 |---|---|
 | Instance | `https://dev412677.service-now.com` (PDI) |
 | SDK credential alias | `dev412677` (the default profile; basic auth, user `claude`, has admin) |
-| Scope | `x_2133493_cls` |
-| scopeId | `d370c6491a0245c89576112b0d312e86` |
+| Scope | `x_1000748_cls` |
+| scopeId | `00d8cda7d32a41ceb8e3c95deb3721b4` |
 | App name | `Crash Location Services` |
 
 ### Instance moved 2026-09-17 — dev426248 → dev412677
 
-The original PDI **dev426248 broke** (HTTP 502) and was replaced by `dev412677` with the same
-`claude` user and password. Only `.github/workflows/deploy.yml` needed changing; everything else in
-this repo is instance-independent.
+The original PDI **dev426248 broke** (HTTP 502) and was replaced by `dev412677`. The app was rebuilt
+from git rather than migrated — nothing was exported from the dead instance.
 
-**The app was rebuilt from git, not migrated.** That works because `src/fluent/generated/keys.ts`
-pins every sys_id, so `now-sdk install` recreates the app on any instance with identical record
-identity — the same discipline that stops CI duplicating records is also what makes the whole
-application reproducible. Nothing had to be exported from the dead instance.
+Moving instances took **three** changes, not the one it looked like:
 
-Note the GitHub secret `SN_PASSWORD` did not change, since the new user reuses the old password.
+1. `.github/workflows/deploy.yml` — the instance URL
+2. The app had to be **registered** on the new instance with `now-sdk init`. `install` resolves the
+   app by the `scopeId` in `now.config.json` and has no `--create` flag, so a scope that has never
+   been registered there fails with *"application was null"*.
+3. The scope had to be **renamed** to match the new instance's vendor prefix — see below. This is
+   the one that cost the most time, because the failure mode looks identical to (2).
+
+The GitHub secret `SN_PASSWORD` did not need changing, since the replacement `claude` user reuses
+the old password.
 
 ### Vendor prefixes are per INSTANCE, not per developer account
 
@@ -146,12 +150,24 @@ across instances.
 non-matching prefixes may not install correctly on this instance."* A first scaffold used a bare
 `x_md_cls` and was discarded and re-run for this reason.
 
-The app's scope stays `x_2133493_cls` on dev412677 despite the mismatch, because the scope name is
-baked into table names, property names, script include apiNames and the script bodies — renaming is
-a real refactor, not a config change. `init` created the app anyway, so the warning is advisory.
-**If an install ever fails citing the prefix, the fix is a global `x_2133493_` → `x_<prefix>_`
-replace across `src/`, after which `keys.ts` regenerates with fresh sys_ids** (harmless on an
-instance the app has never been installed to, destructive on one where it has).
+**That warning is not advisory — it is fatal, and it fails late and confusingly.** `init` reports
+*"Application created successfully"* for a mismatched scope and writes a scopeId, but nothing is
+persisted: `sys_scope` stays empty. The install then fails with `Unable to install application as
+application was null`, and the server-side execution tracker says only the same thing. The real
+cause is that the platform refuses to *create* an app whose scope does not carry the instance's
+vendor prefix, so there is no application for the zip install to land in.
+
+The app was therefore renamed `x_2133493_cls` → `x_1000748_cls` on 2026-09-17. The recipe, if an
+instance ever changes again:
+
+1. `now-sdk init` in a throwaway directory with the new scope name to register it and mint a scopeId
+2. Global `x_<old>_` → `x_<new>_` across `src/`, skipping `generated/`
+3. Update `scope` and `scopeId` in `now.config.json`
+4. Delete `src/fluent/generated/keys.ts` and rebuild — table names are part of its composite keys,
+   so it must regenerate
+
+Step 4 mints fresh sys_ids. Harmless on an instance the app has never been installed to; on one
+where it has, it orphans every existing record instead of updating it.
 
 Note the sibling project at `../dev426248` uses a bare `x_dtf` and its notes claim the instance
 enforces no prefix. That is contradicted by SDK 4.12.2's own warning. Trust the warning.
@@ -175,7 +191,7 @@ prompt at a time; `init --help` itself hangs:
 
 ```bash
 now-sdk init --appName "Crash Location Services" \
-             --scopeName x_2133493_cls \
+             --scopeName x_1000748_cls \
              --packageName "md-cls" \
              --auth dev412677 --template base
 ```

@@ -10,7 +10,7 @@ import { BusinessRule } from '@servicenow/sdk/core'
 export const CreateGeocodeReview = BusinessRule({
     $id: Now.ID['br-create-geocode-review'],
     name: 'Create geocode review',
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     when: 'after',
     action: ['insert', 'update'],
     order: 100,

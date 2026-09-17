@@ -19,14 +19,14 @@ var CrashGeocoder = Class.create()
 CrashGeocoder.prototype = {
     initialize: function () {
         this.lrs = new LRSClient()
-        this.reviewThreshold = parseInt(gs.getProperty('x_2133493_cls.geocode.review_threshold', '60'), 10)
-        this.toleranceM = parseFloat(gs.getProperty('x_2133493_cls.geocode.snap_tolerance_m', '50'))
+        this.reviewThreshold = parseInt(gs.getProperty('x_1000748_cls.geocode.review_threshold', '60'), 10)
+        this.toleranceM = parseFloat(gs.getProperty('x_1000748_cls.geocode.snap_tolerance_m', '50'))
     },
 
     /**
      * Geocode one crash and write the result back to it.
      *
-     * @param {GlideRecord} grCrash — an x_2133493_cls_crash record
+     * @param {GlideRecord} grCrash — an x_1000748_cls_crash record
      * @param {boolean} autoUpdate — call update() when done (default true)
      * @return {object} the outcome, for callers that want to message the user
      */
@@ -59,7 +59,7 @@ CrashGeocoder.prototype = {
         var located = 0
         var review = 0
 
-        var grCrash = new GlideRecord('x_2133493_cls_crash')
+        var grCrash = new GlideRecord('x_1000748_cls_crash')
         grCrash.addQuery('geocode_state', 'pending')
         if (limit) {
             grCrash.setLimit(limit)

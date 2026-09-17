@@ -9,7 +9,7 @@ import { UiAction } from '@servicenow/sdk/core'
  */
 UiAction({
     $id: Now.ID['ua-geocode-crash'],
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     name: 'Geocode',
     actionName: 'geocode_crash',
     hint: 'Resolve this crash to a route and measure',
@@ -47,7 +47,7 @@ action.setRedirectURL(current);`,
  */
 UiAction({
     $id: Now.ID['ua-apply-resolution'],
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     name: 'Apply resolution',
     actionName: 'apply_geocode_resolution',
     hint: 'Write the reviewed location back to the crash and close this task',
@@ -69,7 +69,7 @@ if (!routeId || measure === null || measure === '') {
     gs.addErrorMessage('Enter both a resolved route and a resolved measure first.');
     action.setRedirectURL(current);
 } else {
-    var grCrash = new GlideRecord('x_2133493_cls_crash');
+    var grCrash = new GlideRecord('x_1000748_cls_crash');
 
     if (grCrash.get(current.getValue('crash'))) {
         grCrash.setValue('route_id', routeId);
@@ -105,7 +105,7 @@ if (!routeId || measure === null || measure === '') {
  */
 UiAction({
     $id: Now.ID['ua-accept-candidate'],
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     name: 'Accept candidate',
     actionName: 'accept_geocode_candidate',
     hint: "Copy the geocoder's candidate into the resolved fields for review",

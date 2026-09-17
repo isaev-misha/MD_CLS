@@ -6,7 +6,7 @@ import { Table, StringColumn, ChoiceColumn, IntegerColumn, FloatColumn, DateTime
  * Deliberately NOT extending `task`. A crash is *data*, not work — MassDOT holds
  * roughly 9 million of them, and task carries assignment, SLA and approval
  * machinery that would be dead weight on every row. The *work* of fixing a crash
- * that failed to geocode lives in x_2133493_cls_geocode_review, which does extend
+ * that failed to geocode lives in x_1000748_cls_geocode_review, which does extend
  * task. That separation is the spine of the demo: the crash is data, the exception
  * is work.
  *
@@ -16,8 +16,8 @@ import { Table, StringColumn, ChoiceColumn, IntegerColumn, FloatColumn, DateTime
  * measure is what survives the road network being re-surveyed or realigned.
  * See CLAUDE.md before changing any of this.
  */
-export const x_2133493_cls_crash = Table({
-    name: 'x_2133493_cls_crash',
+export const x_1000748_cls_crash = Table({
+    name: 'x_1000748_cls_crash',
     label: 'Crash',
     display: 'number',
     audit: true,

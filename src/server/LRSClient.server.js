@@ -22,11 +22,11 @@ var LRSClient = Class.create()
 LRSClient.prototype = {
     initialize: function () {
         this.serviceUrl = gs.getProperty(
-            'x_2133493_cls.lrs.service_url',
+            'x_1000748_cls.lrs.service_url',
             'https://gis.massdot.state.ma.us/arcgis/rest/services/Roads/RoadInventoryYearEndFiles/FeatureServer/10'
         )
-        this.searchRadiusM = parseFloat(gs.getProperty('x_2133493_cls.lrs.search_radius_m', '250'))
-        this.timeoutMs = parseInt(gs.getProperty('x_2133493_cls.lrs.timeout_ms', '20000'), 10)
+        this.searchRadiusM = parseFloat(gs.getProperty('x_1000748_cls.lrs.search_radius_m', '250'))
+        this.timeoutMs = parseInt(gs.getProperty('x_1000748_cls.lrs.timeout_ms', '20000'), 10)
         this.outFields = 'route_id,from_measure,to_measure,St_Name,Route_Number,Route_Direction'
         this.lastError = ''
     },

@@ -11,7 +11,7 @@ import { Property } from '@servicenow/sdk/core'
 
 Property({
     $id: Now.ID['prop-lrs-url'],
-    name: 'x_2133493_cls.lrs.service_url',
+    name: 'x_1000748_cls.lrs.service_url',
     value: 'https://gis.massdot.state.ma.us/arcgis/rest/services/Roads/RoadInventoryYearEndFiles/FeatureServer/10',
     description:
         'ArcGIS feature service layer carrying the road network. Must expose route_id, from_measure, to_measure and M-enabled geometry.',
@@ -19,7 +19,7 @@ Property({
 
 Property({
     $id: Now.ID['prop-lrs-radius'],
-    name: 'x_2133493_cls.lrs.search_radius_m',
+    name: 'x_1000748_cls.lrs.search_radius_m',
     value: '250',
     description:
         'How far from a coordinate to look for a road, in metres. Wider finds a road for almost anything; the tolerance below is what decides whether the match is believable.',
@@ -27,14 +27,14 @@ Property({
 
 Property({
     $id: Now.ID['prop-lrs-timeout'],
-    name: 'x_2133493_cls.lrs.timeout_ms',
+    name: 'x_1000748_cls.lrs.timeout_ms',
     value: '20000',
     description: 'HTTP timeout for road network calls, in milliseconds.',
 })
 
 Property({
     $id: Now.ID['prop-snap-tolerance'],
-    name: 'x_2133493_cls.geocode.snap_tolerance_m',
+    name: 'x_1000748_cls.geocode.snap_tolerance_m',
     value: '50',
     description:
         'A snapped point further than this from the centreline is not trusted and goes to review. This is the single number that decides how big the review queue is.',
@@ -42,7 +42,7 @@ Property({
 
 Property({
     $id: Now.ID['prop-review-threshold'],
-    name: 'x_2133493_cls.geocode.review_threshold',
+    name: 'x_1000748_cls.geocode.review_threshold',
     value: '60',
     description: 'Confidence below this routes the crash to a human. Raise it to trade queue volume for accuracy.',
 })

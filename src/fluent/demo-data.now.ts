@@ -19,7 +19,7 @@ import { Record } from '@servicenow/sdk/core'
 export const crashClean = Record({
     $id: Now.ID['crash-hero-clean'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001042',
         crash_datetime: '2026-09-15 07:42:00',
@@ -38,7 +38,7 @@ export const crashClean = Record({
 export const crashOffNetwork = Record({
     $id: Now.ID['crash-hero-fail'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001043',
         crash_datetime: '2026-09-15 22:18:00',
@@ -56,7 +56,7 @@ export const crashOffNetwork = Record({
 export const crashQueue1 = Record({
     $id: Now.ID['crash-queue-1'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001030',
         crash_datetime: '2026-09-11 16:05:00',
@@ -70,7 +70,7 @@ export const crashQueue1 = Record({
 export const crashQueue2 = Record({
     $id: Now.ID['crash-queue-2'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001031',
         crash_datetime: '2026-09-12 08:30:00',
@@ -88,7 +88,7 @@ export const crashQueue2 = Record({
 export const crashQueue3 = Record({
     $id: Now.ID['crash-queue-3'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001032',
         crash_datetime: '2026-09-13 19:47:00',
@@ -104,7 +104,7 @@ export const crashQueue3 = Record({
 export const crashQueue4 = Record({
     $id: Now.ID['crash-queue-4'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001033',
         crash_datetime: '2026-09-14 06:12:00',
@@ -123,7 +123,7 @@ export const crashQueue4 = Record({
 export const crashQueue5 = Record({
     $id: Now.ID['crash-queue-5'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001034',
         crash_datetime: '2026-09-15 13:55:00',
@@ -142,7 +142,7 @@ export const crashQueue5 = Record({
 export const crashQueue6 = Record({
     $id: Now.ID['crash-queue-6'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_crash',
+    table: 'x_1000748_cls_crash',
     data: {
         number: 'CRSH0001035',
         crash_datetime: '2026-09-16 05:20:00',
@@ -165,7 +165,7 @@ export const crashQueue6 = Record({
 Record({
     $id: Now.ID['review-1'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001001',
         crash: crashQueue1,
@@ -182,7 +182,7 @@ Record({
 Record({
     $id: Now.ID['review-2'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001002',
         crash: crashQueue2,
@@ -203,7 +203,7 @@ Record({
 Record({
     $id: Now.ID['review-3'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001003',
         crash: crashQueue3,
@@ -220,7 +220,7 @@ Record({
 Record({
     $id: Now.ID['review-4'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001004',
         crash: crashQueue4,
@@ -241,7 +241,7 @@ Record({
 Record({
     $id: Now.ID['review-5'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001005',
         crash: crashQueue5,
@@ -262,7 +262,7 @@ Record({
 Record({
     $id: Now.ID['review-6'],
     $meta: { installMethod: 'demo' },
-    table: 'x_2133493_cls_geocode_review',
+    table: 'x_1000748_cls_geocode_review',
     data: {
         number: 'GCR0001006',
         crash: crashQueue6,

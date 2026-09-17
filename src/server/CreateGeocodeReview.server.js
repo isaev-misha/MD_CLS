@@ -12,7 +12,7 @@
 ;(function executeRule(current, previous) {
     var crashSysId = current.getUniqueValue()
 
-    var grExisting = new GlideRecord('x_2133493_cls_geocode_review')
+    var grExisting = new GlideRecord('x_1000748_cls_geocode_review')
     grExisting.addQuery('crash', crashSysId)
     grExisting.addQuery('active', true)
     grExisting.setLimit(1)
@@ -24,7 +24,7 @@
 
     var snapDistance = parseFloat(current.getValue('snap_distance_m'))
     var hasCandidate = !!current.getValue('route_id')
-    var tolerance = parseFloat(gs.getProperty('x_2133493_cls.geocode.snap_tolerance_m', '50'))
+    var tolerance = parseFloat(gs.getProperty('x_1000748_cls.geocode.snap_tolerance_m', '50'))
 
     // Why a person is being asked, in the reviewer's terms rather than the
     // geocoder's. The reason drives how the queue gets triaged.
@@ -37,7 +37,7 @@
         reason = 'conflicting_sources'
     }
 
-    var grReview = new GlideRecord('x_2133493_cls_geocode_review')
+    var grReview = new GlideRecord('x_1000748_cls_geocode_review')
     grReview.initialize()
     grReview.setValue('crash', crashSysId)
     grReview.setValue('short_description', 'Locate crash ' + current.getValue('number'))
