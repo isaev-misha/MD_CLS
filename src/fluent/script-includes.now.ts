@@ -19,3 +19,13 @@ ScriptInclude({
         'Resolves a crash to route_id + measure by the evidence ladder (officer route, GPS, address text), scores confidence from snap distance, and routes low-confidence results to human review.',
     script: Now.include('../server/CrashGeocoder.server.js'),
 })
+
+ScriptInclude({
+    $id: Now.ID['si-demo-reset'],
+    name: 'DemoReset',
+    active: true,
+    apiName: 'x_1000748_cls.DemoReset',
+    description:
+        'Returns the two hero crashes to their pre-demo state and clears their review tasks, so a rehearsal can be run more than once. Leaves the staged backlog alone.',
+    script: Now.include('../server/DemoReset.server.js'),
+})

@@ -23,7 +23,9 @@ export const x_1000748_cls_crash = Table({
     audit: true,
     autoNumber: {
         prefix: 'CRSH',
-        number: 1000,
+        // Above the seeded range (…1030-1043) so live records cannot collide
+        // with staged demo numbers. autoNumber does not know about explicit ones.
+        number: 1050,
         numberOfDigits: 7,
     },
     schema: {

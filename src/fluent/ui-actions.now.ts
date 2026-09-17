@@ -126,3 +126,38 @@ current.update();
 gs.addInfoMessage('Candidate copied into the resolved fields. Check it, then press Apply resolution.');
 action.setRedirectURL(current);`,
 })
+
+/**
+ * Reset demo — a list banner button on the crash table.
+ *
+ * Not part of the demo itself; it is what makes the demo repeatable. Press it
+ * between rehearsals so the second run looks exactly like the first.
+ */
+UiAction({
+    $id: Now.ID['ua-reset-demo'],
+    table: 'x_1000748_cls_crash',
+    name: 'Reset demo',
+    actionName: 'reset_crash_demo',
+    hint: 'Return the two hero crashes to Pending and clear their review tasks',
+    showInsert: false,
+    showUpdate: false,
+    order: 300,
+    active: true,
+    list: {
+        showButton: true,
+        showBannerButton: true,
+        showLink: false,
+        showContextMenu: false,
+    },
+    script: `var outcome = new DemoReset().run();
+
+gs.addInfoMessage('Demo reset: ' + outcome.crashes + ' crash(es) back to Pending, ' +
+    outcome.reviews + ' review task(s) removed.');
+
+if (outcome.missing.length) {
+    gs.addErrorMessage('Not found on this instance: ' + outcome.missing.join(', ') +
+        '. Re-deploy the demo data.');
+}
+
+action.setRedirectURL(current);`,
+})

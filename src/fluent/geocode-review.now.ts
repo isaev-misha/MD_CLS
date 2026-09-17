@@ -19,7 +19,8 @@ export const x_1000748_cls_geocode_review = Table({
     audit: true,
     autoNumber: {
         prefix: 'GCR',
-        number: 1000,
+        // Above the seeded range (…1001-1006); see the note on the crash table.
+        number: 1010,
         numberOfDigits: 7,
     },
     schema: {

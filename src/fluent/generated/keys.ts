@@ -97,6 +97,10 @@ declare global {
                         table: 'sys_script_include'
                         id: '6533a044dbae4a579d58a42f018e10d8'
                     }
+                    'si-demo-reset': {
+                        table: 'sys_script_include'
+                        id: '44533e7127bb42cebd59952ee9092779'
+                    }
                     'si-lrs-client': {
                         table: 'sys_script_include'
                         id: '4bdad208bc0544ec85201c3edb9cd110'
@@ -108,6 +112,10 @@ declare global {
                     src_server_CreateGeocodeReview_server_js: {
                         table: 'sys_module'
                         id: '5433731cd0ba4c53a8cf8bddda8c8e73'
+                    }
+                    src_server_DemoReset_server_js: {
+                        table: 'sys_module'
+                        id: '276a12e114e446059856f7f826a5cedc'
                     }
                     src_server_LRSClient_server_js: {
                         table: 'sys_module'
@@ -124,6 +132,10 @@ declare global {
                     'ua-geocode-crash': {
                         table: 'sys_ui_action'
                         id: 'd1c2c0686344477b9950ff3092e95a76'
+                    }
+                    'ua-reset-demo': {
+                        table: 'sys_ui_action'
+                        id: '0b9b076bcfe543b69a54ebb958b277f5'
                     }
                 }
                 composite: [
