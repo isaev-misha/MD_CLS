@@ -31,12 +31,19 @@ export const crashLocationWorkspace = Workspace({
 /**
  * Route security.
  *
- * `name` must be the workspace path followed by `.*` — it matches every route
- * under /now/crash-location. Get this wrong and the workspace is silently
- * unreachable for everyone but admin, which looks like a broken deploy. The
- * workspace guide still shows `table` / `field` here; SDK 4.12.2 warns that both
- * are deprecated for `ux_route` and ignored, so `name` is the only one that
- * actually secures anything.
+ * `name` must be `now.` + the workspace path + `.*`. The `now.` prefix is not
+ * decoration: every OOB ux_route ACL on the instance is named that way
+ * (`now.assetworkspace.*`, `now.app-manager.*`), and the route check looks for
+ * exactly that name. The SDK's workspace guide still shows the deprecated
+ * `table: 'now'` + `field: '<path>.*'` pair, and 4.12.2 warns both are ignored
+ * for `ux_route` — but `table` WAS the `now.` prefix, so translating that pair
+ * to `name` means carrying the prefix across, not dropping it.
+ *
+ * Getting this wrong does not read as a permissions problem. With no ACL whose
+ * name matches the route, /now/crash-location/home renders "Page not found" —
+ * for admin too, because `adminOverrides` only helps on an ACL that is actually
+ * being consulted. Cost an hour of looking for a missing record that was there
+ * all along.
  *
  * `adminOverrides` is left on so a plain admin sign-in (what the demo actually
  * uses) reaches the workspace without first granting itself the role.
@@ -45,7 +52,7 @@ Acl({
     $id: Now.ID['ws-crash-location-acl'],
     type: 'ux_route',
     operation: 'read',
-    name: 'crash-location.*',
+    name: 'now.crash-location.*',
     localOrExisting: 'Existing',
     active: true,
     adminOverrides: true,
