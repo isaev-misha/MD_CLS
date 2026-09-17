@@ -23,6 +23,11 @@ UiAction({
         showContextMenu: true,
         style: 'primary',
     },
+    // A configurable workspace renders NONE of a table's UI actions unless they
+    // are flagged for it — the workspace record page showed only Save and Delete
+    // until this was set. `form.showButton` governs the classic form; this governs
+    // the workspace, and both are needed because the demo uses both.
+    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
     script: `var geocoder = new CrashGeocoder();
 var outcome = geocoder.geocodeRecord(current);
 
@@ -62,6 +67,9 @@ UiAction({
         showContextMenu: true,
         style: 'primary',
     },
+    // The button the whole demo turns on. Primary in the workspace, not tucked
+    // into the overflow menu.
+    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
     script: `var routeId = current.getValue('resolved_route_id');
 var measure = current.getValue('resolved_measure');
 
@@ -119,6 +127,7 @@ UiAction({
         showLink: false,
         showContextMenu: true,
     },
+    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
     script: `current.setValue('resolved_route_id', current.getValue('candidate_route_id'));
 current.setValue('resolved_measure', current.getValue('candidate_measure'));
 current.update();
@@ -140,7 +149,11 @@ UiAction({
     actionName: 'reset_crash_demo',
     hint: 'Return the two hero crashes to Pending and clear their review tasks',
     showInsert: false,
-    showUpdate: false,
+    // A form button needs showUpdate — without it the action never renders on a
+    // saved record, whatever the form flags say. The script never touches
+    // `current`, so pressing it from a crash record is safe and lands the
+    // presenter back on the reset list.
+    showUpdate: true,
     order: 300,
     active: true,
     // Reads as a contradiction and is not one: `isClient: false` keeps this a
@@ -159,6 +172,19 @@ UiAction({
         showLink: true,
         showContextMenu: true,
     },
+    // Also a form button, because the list banner button alone could not be found
+    // on the instance. A UI action is only expressible in a configurable workspace
+    // as a form button — the SDK rejects `isConfigurableWorkspace` without one
+    // (TS112), and there is no workspace equivalent of a banner button. So the
+    // bench control rides on the record form, in the overflow menu rather than as
+    // a primary button: reachable in both UIs, without putting a destructive-
+    // sounding button next to Save in front of a customer.
+    form: {
+        showButton: true,
+        showLink: false,
+        showContextMenu: true,
+    },
+    workspace: { isConfigurableWorkspace: true, showFormMenuButtonV2: true },
     script: `var outcome = new DemoReset().run();
 
 gs.addInfoMessage('Demo reset: ' + outcome.crashes + ' crash(es) back to Pending, ' +
