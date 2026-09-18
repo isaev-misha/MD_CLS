@@ -63,6 +63,7 @@ export const crashQueue1 = Record({
         location_text: 'Intersection of Main St and Union Ave, Framingham',
         geocode_state: 'needs_review',
         geocode_confidence: 15,
+        geocode_reason: 'no_location_data',
         geocode_message: 'Only narrative text available — address geocoding is not configured',
     },
 })
@@ -81,6 +82,16 @@ export const crashQueue2 = Record({
         longitude: -71.552300,
         geocode_state: 'needs_review',
         geocode_confidence: 30,
+        // The GPS snapped cleanly; the disagreement is with the officer, not the
+        // road network. These four are what the review copies across as its
+        // candidate — without them GCR0001002 carries a candidate that no run of
+        // the geocoder could have produced.
+        route_id: 'SR20 WB',
+        measure: 40.1,
+        street_name: 'Boston Post Road',
+        snap_distance_m: 8.6,
+        geocode_method: 'gps_snap',
+        geocode_reason: 'conflicting_sources',
         geocode_message: 'Reported milemarker and GPS disagree by more than 1 mile',
     },
 })
@@ -97,6 +108,7 @@ export const crashQueue3 = Record({
         reported_milemarker: 22.8,
         geocode_state: 'needs_review',
         geocode_confidence: 30,
+        geocode_reason: 'ambiguous_route',
         geocode_message: '2 routes match — concurrency, needs a human',
     },
 })
@@ -116,6 +128,8 @@ export const crashQueue4 = Record({
         snap_distance_m: 168.4,
         route_id: 'SR30 EB',
         street_name: 'Cochituate Road',
+        geocode_method: 'gps_snap',
+        geocode_reason: 'off_network',
         geocode_message: 'Nearest route is 168.4 m away, beyond the 50 m tolerance',
     },
 })
@@ -131,10 +145,12 @@ export const crashQueue5 = Record({
         latitude: 42.363400,
         longitude: -71.264100,
         geocode_state: 'needs_review',
-        geocode_confidence: 55,
-        snap_distance_m: 74.9,
+        geocode_confidence: 72,
+        snap_distance_m: 44.0,
         route_id: 'I90 EB',
         street_name: 'Massachusetts Turnpike',
+        geocode_method: 'gps_snap',
+        geocode_reason: 'low_confidence',
         geocode_message: 'Ramp geometry — snapped to the mainline rather than the ramp',
     },
 })
@@ -149,6 +165,7 @@ export const crashQueue6 = Record({
         location_text: '',
         geocode_state: 'needs_review',
         geocode_confidence: 0,
+        geocode_reason: 'no_location_data',
         geocode_message: 'No coordinates, route or location text on the record',
     },
 })
@@ -254,7 +271,7 @@ Record({
         candidate_route_id: 'I90 EB',
         candidate_measure: 118.6,
         candidate_street: 'Massachusetts Turnpike',
-        candidate_score: 55,
+        candidate_score: 72,
         description: 'Snapped to the mainline. The crash was on the connector ramp.',
     },
 })

@@ -234,7 +234,10 @@ export const crashForm = Form({
             content: [
                 {
                     layout: 'two-column',
-                    leftElements: [{ field: 'geocode_method', type: 'table_field' }],
+                    leftElements: [
+                        { field: 'geocode_method', type: 'table_field' },
+                        { field: 'geocode_reason', type: 'table_field' },
+                    ],
                     rightElements: [{ field: 'snap_distance_m', type: 'table_field' }],
                 },
                 {

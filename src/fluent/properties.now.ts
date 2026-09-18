@@ -43,6 +43,7 @@ Property({
 Property({
     $id: Now.ID['prop-review-threshold'],
     name: 'x_1000748_cls.geocode.review_threshold',
-    value: '60',
-    description: 'Confidence below this routes the crash to a human. Raise it to trade queue volume for accuracy.',
+    value: '75',
+    description:
+        'Confidence below this routes the crash to a human. Raise it to trade queue volume for accuracy. 75 means a GPS fix is accepted automatically only within 25 m of the centreline; between 25 and 50 m it is still placed, but a person is asked to confirm it. At 60 nothing inside the 50 m tolerance could ever fall below the bar, which left `low_confidence` a reason the code could never produce.',
 })

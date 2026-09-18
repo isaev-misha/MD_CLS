@@ -89,6 +89,23 @@ export const x_1000748_cls_crash = Table({
                 manual: { label: 'Manually located by reviewer' },
             },
         }),
+        // Why the geocoder gave up, in its own words rather than re-derived.
+        // Without this the review rule has to guess the reason back out of the
+        // crash's fields, and two of the five reasons are simply unguessable:
+        // `ambiguous_route` (the evidence that two routes matched is gone by then)
+        // and `low_confidence` (indistinguishable from off_network downstream).
+        geocode_reason: ChoiceColumn({
+            label: 'Geocode reason',
+            readOnly: true,
+            hint: 'Why this crash was handed to a person, as decided by the geocoder',
+            choices: {
+                no_location_data: { label: 'No usable location data' },
+                low_confidence: { label: 'Below confidence threshold' },
+                ambiguous_route: { label: 'Ambiguous route match' },
+                off_network: { label: 'Point not near any road' },
+                conflicting_sources: { label: 'Reported route conflicts with GPS' },
+            },
+        }),
         geocode_confidence: IntegerColumn({
             label: 'Confidence',
             min: 0,

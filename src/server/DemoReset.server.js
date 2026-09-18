@@ -44,6 +44,7 @@ DemoReset.prototype = {
             {
                 number: 'CRSH0001030',
                 geocode_confidence: '15',
+                geocode_reason: 'no_location_data',
                 geocode_message: 'Only narrative text available — address geocoding is not configured',
             },
             {
@@ -53,6 +54,12 @@ DemoReset.prototype = {
                 latitude: '42.345100',
                 longitude: '-71.552300',
                 geocode_confidence: '30',
+                route_id: 'SR20 WB',
+                measure: '40.1',
+                street_name: 'Boston Post Road',
+                snap_distance_m: '8.6',
+                geocode_method: 'gps_snap',
+                geocode_reason: 'conflicting_sources',
                 geocode_message: 'Reported milemarker and GPS disagree by more than 1 mile',
             },
             {
@@ -60,6 +67,7 @@ DemoReset.prototype = {
                 reported_route: '9',
                 reported_milemarker: '22.8',
                 geocode_confidence: '30',
+                geocode_reason: 'ambiguous_route',
                 geocode_message: '2 routes match — concurrency, needs a human',
             },
             {
@@ -70,21 +78,26 @@ DemoReset.prototype = {
                 snap_distance_m: '168.4',
                 route_id: 'SR30 EB',
                 street_name: 'Cochituate Road',
+                geocode_method: 'gps_snap',
+                geocode_reason: 'off_network',
                 geocode_message: 'Nearest route is 168.4 m away, beyond the 50 m tolerance',
             },
             {
                 number: 'CRSH0001034',
                 latitude: '42.363400',
                 longitude: '-71.264100',
-                geocode_confidence: '55',
-                snap_distance_m: '74.9',
+                geocode_confidence: '72',
+                snap_distance_m: '44.0',
                 route_id: 'I90 EB',
                 street_name: 'Massachusetts Turnpike',
+                geocode_method: 'gps_snap',
+                geocode_reason: 'low_confidence',
                 geocode_message: 'Ramp geometry — snapped to the mainline rather than the ramp',
             },
             {
                 number: 'CRSH0001035',
                 geocode_confidence: '0',
+                geocode_reason: 'no_location_data',
                 geocode_message: 'No coordinates, route or location text on the record',
             },
         ]
@@ -120,7 +133,7 @@ DemoReset.prototype = {
                 candidate_route_id: 'I90 EB',
                 candidate_measure: '118.6',
                 candidate_street: 'Massachusetts Turnpike',
-                candidate_score: '55',
+                candidate_score: '72',
             },
             { number: 'GCR0001006', state: '1', priority: '3' },
         ]
@@ -141,6 +154,7 @@ DemoReset.prototype = {
             'geocode_confidence',
             'geocode_method',
             'geocode_message',
+            'geocode_reason',
             'geocode_review',
         ]
     },

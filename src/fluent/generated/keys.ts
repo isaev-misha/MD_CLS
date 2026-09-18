@@ -720,6 +720,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '127757947b0b4652af4c44d7e673c761'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '5'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '13a462a88fb94b71bee510aacb3cf5b4'
                         key: {
@@ -1014,6 +1036,17 @@ declare global {
                     },
                     {
                         table: 'sys_choice'
+                        id: '36830353f5004aa48151e6936e81d151'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            value: 'conflicting_sources'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
                         id: '36da96ce57bd4b79b5de986d5e2b23cb'
                         key: {
                             name: 'x_1000748_cls_geocode_review'
@@ -1103,6 +1136,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'crash'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '3aa78357147641a188e5cd191871f2c1'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_message'
+                            position: '6'
                         }
                     },
                     {
@@ -1442,6 +1497,39 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: '55b982fcb5cb40df8da5b2f072174c06'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            value: 'low_confidence'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '56d329540d4c4cff8de27b79c7cf7d98'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_reason'
+                            position: '2'
+                        }
+                    },
+                    {
                         table: 'sys_ux_form_action'
                         id: '56fc761b72f24e46945dda9fb1f25f36'
                         key: {
@@ -1620,6 +1708,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '5f8c7c1518c84cafa50414f14066647c'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '59ff7ad0af5d493c8f03a7dec25b7235'
@@ -1679,6 +1768,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice_set'
+                        id: '638accabb675466d8dd89eb76be35b83'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '6435d95da474457aa7179715cf6b4c5e'
                         key: {
@@ -1714,6 +1811,14 @@ declare global {
                             }
                             element: '.end_split'
                             position: '7'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '65a0555abbff482c9e403619b37a373a'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
                         }
                     },
                     {
@@ -1905,6 +2010,28 @@ declare global {
                             }
                             element: '.begin_split'
                             position: '0'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '74747c8e974e4639a32cb6e68e27484a'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'snap_distance_m'
+                            position: '4'
                         }
                     },
                     {
@@ -2107,6 +2234,28 @@ declare global {
                             }
                             element: 'latitude'
                             position: '6'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '8439ff4cf04a44f8b538e25ee265a6df'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '3'
                         }
                     },
                     {
@@ -2666,6 +2815,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'ae450bb1305444bf886e9bac2079e0d0'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '59ff7ad0af5d493c8f03a7dec25b7235'
@@ -2734,6 +2884,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'b34ea82e917342b6b73a3b204d25f9bd'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '59ff7ad0af5d493c8f03a7dec25b7235'
@@ -2859,6 +3010,17 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'longitude'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'bbf5f9f9a32545cc80189e8c496ea774'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            value: 'ambiguous_route'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -3299,6 +3461,17 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'ef4219d09e55475185391e15e2a51081'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            value: 'off_network'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_ui_form_section'
                         id: 'f00ea5d6c6b44a76a344b9808cdd4753'
                         key: {
@@ -3355,6 +3528,15 @@ declare global {
                     },
                     {
                         table: 'sys_documentation'
+                        id: 'f703de031fcc447f8f5569cfa65b53e9'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
                         id: 'f73a53a04c4c465a8ed633fbc4f325cb'
                         key: {
                             name: 'x_1000748_cls_crash'
@@ -3385,6 +3567,17 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'f81a41d271c6417e9d0ca8e2bd0f2e63'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_reason'
+                            value: 'no_location_data'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_index'
                         id: 'fdcc393cab7a40eeb2602b39f89f352b'
                         key: {
@@ -3410,6 +3603,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: 'fe7ff5faab7547968a075471cd14cf56'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '59ff7ad0af5d493c8f03a7dec25b7235'

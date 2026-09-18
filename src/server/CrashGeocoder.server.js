@@ -21,6 +21,9 @@ CrashGeocoder.prototype = {
         this.lrs = new LRSClient()
         this.reviewThreshold = parseInt(gs.getProperty('x_1000748_cls.geocode.review_threshold', '60'), 10)
         this.toleranceM = parseFloat(gs.getProperty('x_1000748_cls.geocode.snap_tolerance_m', '50'))
+        // How far the officer's milemarker may sit from a GPS-derived measure before
+        // the two count as disagreeing rather than rounding. Miles, because measure is.
+        this.conflictMiles = 1
     },
 
     /**
@@ -40,6 +43,7 @@ CrashGeocoder.prototype = {
         grCrash.setValue('snap_distance_m', this._isNumber(outcome.distanceM) ? outcome.distanceM : '')
         grCrash.setValue('geocode_confidence', outcome.confidence)
         grCrash.setValue('geocode_method', outcome.method || '')
+        grCrash.setValue('geocode_reason', outcome.reason || '')
         grCrash.setValue('geocode_state', outcome.state)
         grCrash.setValue('geocode_message', outcome.message || '')
 
@@ -92,6 +96,16 @@ CrashGeocoder.prototype = {
             var onNetwork = this.lrs.resolveReportedRoute(reportedRoute, reportedMilemarker)
 
             if (onNetwork.found) {
+                // The officer's own numbers check out on the network. If the cruiser
+                // also recorded a position, the two are independent measurements of
+                // the same event and they have to agree — a mile apart means one of
+                // them is wrong, and no algorithm can say which. That is a person's
+                // call, so it goes to review rather than to the higher-ranked rung.
+                var conflict = this._conflictWithGps(grCrash, onNetwork.measure)
+                if (conflict) {
+                    return conflict
+                }
+
                 return {
                     routeId: onNetwork.routeId,
                     measure: onNetwork.measure,
@@ -101,6 +115,7 @@ CrashGeocoder.prototype = {
                     confidence: 92,
                     method: 'officer_lrs',
                     state: 'located',
+                    reason: '',
                     message: 'Reported route and milemarker confirmed on the network',
                 }
             }
@@ -133,12 +148,32 @@ CrashGeocoder.prototype = {
                         confidence: confidence,
                         method: 'gps_snap',
                         state: 'needs_review',
+                        reason: 'off_network',
                         message:
                             'Nearest route is ' +
                             snapped.distanceM +
                             ' m away, beyond the ' +
                             this.toleranceM +
                             ' m tolerance',
+                    }
+                }
+
+                // A clean snap that contradicts what the officer wrote is still a
+                // disagreement between two sources, not a location.
+                if (reportedRoute && this._isNumber(reportedMilemarker) && this._isNumber(snapped.measure)) {
+                    if (Math.abs(reportedMilemarker - snapped.measure) > this.conflictMiles) {
+                        return {
+                            routeId: snapped.routeId,
+                            measure: snapped.measure,
+                            street: snapped.street,
+                            routeDirection: snapped.routeDirection,
+                            distanceM: snapped.distanceM,
+                            confidence: 30,
+                            method: 'gps_snap',
+                            state: 'needs_review',
+                            reason: 'conflicting_sources',
+                            message: 'Reported milemarker and GPS disagree by more than 1 mile',
+                        }
                     }
                 }
 
@@ -151,6 +186,7 @@ CrashGeocoder.prototype = {
                     confidence: confidence,
                     method: 'gps_snap',
                     state: confidence >= this.reviewThreshold ? 'located' : 'needs_review',
+                    reason: confidence >= this.reviewThreshold ? '' : 'low_confidence',
                     message: '',
                 }
             }
@@ -202,6 +238,44 @@ CrashGeocoder.prototype = {
             return 30
         }
         return 20
+    },
+
+    /**
+     * Does the cruiser's GPS contradict a measure we already trust?
+     *
+     * Returns a needs_review outcome when the two disagree by more than
+     * conflictMiles, and null when they agree, when there is no GPS to compare
+     * against, or when the point does not snap at all.
+     */
+    _conflictWithGps: function (grCrash, trustedMeasure) {
+        var latitude = this._toNumber(grCrash.getValue('latitude'))
+        var longitude = this._toNumber(grCrash.getValue('longitude'))
+
+        if (!this._isNumber(latitude) || !this._isNumber(longitude) || !this._isNumber(trustedMeasure)) {
+            return null
+        }
+
+        var snapped = this.lrs.geometryToMeasure(latitude, longitude)
+        if (!snapped.found || !this._isNumber(snapped.measure)) {
+            return null
+        }
+
+        if (Math.abs(snapped.measure - trustedMeasure) <= this.conflictMiles) {
+            return null
+        }
+
+        return {
+            routeId: snapped.routeId,
+            measure: snapped.measure,
+            street: snapped.street,
+            routeDirection: snapped.routeDirection,
+            distanceM: snapped.distanceM,
+            confidence: 30,
+            method: 'gps_snap',
+            state: 'needs_review',
+            reason: 'conflicting_sources',
+            message: 'Reported milemarker and GPS disagree by more than 1 mile',
+        }
     },
 
     _needsReview: function (reason, message, confidence) {

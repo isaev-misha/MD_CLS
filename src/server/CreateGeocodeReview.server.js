@@ -22,19 +22,50 @@
         return
     }
 
+    var VALID_REASONS = [
+        'no_location_data',
+        'low_confidence',
+        'ambiguous_route',
+        'off_network',
+        'conflicting_sources',
+    ]
+
+    // How far the officer's milemarker may sit from the resolved measure before
+    // the two count as disagreeing rather than rounding. Miles, because measure is.
+    var CONFLICT_MILES = 1
+
     var snapDistance = parseFloat(current.getValue('snap_distance_m'))
     var hasCandidate = !!current.getValue('route_id')
     var tolerance = parseFloat(gs.getProperty('x_1000748_cls.geocode.snap_tolerance_m', '50'))
 
-    // Why a person is being asked, in the reviewer's terms rather than the
-    // geocoder's. The reason drives how the queue gets triaged.
-    var reason = 'no_location_data'
-    if (hasCandidate && !isNaN(snapDistance) && snapDistance > tolerance) {
-        reason = 'off_network'
-    } else if (hasCandidate) {
-        reason = 'low_confidence'
-    } else if (current.getValue('reported_route') && current.getValue('latitude')) {
-        reason = 'conflicting_sources'
+    // The geocoder already decided why it was giving up, so use its answer.
+    // Re-deriving loses information it had and we do not: `ambiguous_route` in
+    // particular is unrecoverable here, because the two matching routes are not
+    // written anywhere on the crash.
+    var reason = current.getValue('geocode_reason')
+
+    if (VALID_REASONS.indexOf(reason) === -1) {
+        // Fallback for crashes that arrive already in needs_review from a feed,
+        // having never passed through CrashGeocoder.
+        var reportedRoute = current.getValue('reported_route')
+        var reportedMm = parseFloat(current.getValue('reported_milemarker'))
+        var measure = parseFloat(current.getValue('measure'))
+        var disagrees =
+            reportedRoute &&
+            !isNaN(reportedMm) &&
+            !isNaN(measure) &&
+            Math.abs(reportedMm - measure) > CONFLICT_MILES
+
+        reason = 'no_location_data'
+        if (disagrees) {
+            reason = 'conflicting_sources'
+        } else if (hasCandidate && !isNaN(snapDistance) && snapDistance > tolerance) {
+            reason = 'off_network'
+        } else if (hasCandidate) {
+            reason = 'low_confidence'
+        } else if (reportedRoute && current.getValue('latitude')) {
+            reason = 'conflicting_sources'
+        }
     }
 
     var grReview = new GlideRecord('x_1000748_cls_geocode_review')
