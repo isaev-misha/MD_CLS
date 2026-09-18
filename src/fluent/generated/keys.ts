@@ -9,6 +9,14 @@ declare global {
                         table: 'sys_ui_annotation'
                         id: 'fcc77716cbb7462c9e6e1d38b4ea0486'
                     }
+                    'ann-crash-reported': {
+                        table: 'sys_ui_annotation'
+                        id: '0967d3174128423e8cef7785b148179f'
+                    }
+                    'ann-crash-resolved': {
+                        table: 'sys_ui_annotation'
+                        id: '34eff3312d324c9d9edba50bd68043e2'
+                    }
                     'ann-resolved': {
                         table: 'sys_ui_annotation'
                         id: '20dcbab4e2784e669d1dafbb93fdcb51'
@@ -494,6 +502,20 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_form'
+                        id: '05bfccf1f77947e7b70fa5e7657b7204'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
                         table: 'sys_ui_element'
                         id: '063c0d357dc1428e8ba203bbc3a59812'
                         key: {
@@ -748,6 +770,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '1ed7b38b40d34e3ea852cf2ba2479c46'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '5'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '1ef1c8c3972c4f20bebd844e62a2e154'
                         key: {
@@ -788,6 +832,50 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '244f85c94fef41948bc094a357c780ee'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '8'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '255f05f5a5f34d76ae3a7f08c74e2757'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '3'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '285f00dd814d4c2b9edb197c877fc251'
                         key: {
@@ -816,6 +904,28 @@ declare global {
                             }
                             element: 'candidate_measure'
                             position: '5'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '296339756e744f4794c7ea86463bcb55'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'route_id'
+                            position: '2'
                         }
                     },
                     {
@@ -933,6 +1043,39 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_form_section'
+                        id: '3a28ccd41e5c4edf9c8a9361f92a3f68'
+                        key: {
+                            sys_ui_form: {
+                                id: '05bfccf1f77947e7b70fa5e7657b7204'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '3a6cf2c3600d4f55977b92b5dd8d3e56'
                         key: {
@@ -980,6 +1123,28 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'reported_milemarker'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '41171d7bef1b438bacf2fb5186e4607b'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '2'
                         }
                     },
                     {
@@ -1125,6 +1290,127 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '4d70463f97b645b8b688f4712cb8408c'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'location_text'
+                            position: '1'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '502e6a6a84284e11a13a9c0caadaafde'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'measure'
+                            position: '3'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_form_section'
+                        id: '51ef556fefbb4bb8bc117ec2f17339dc'
+                        key: {
+                            sys_ui_form: {
+                                id: '05bfccf1f77947e7b70fa5e7657b7204'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '522747749a2940c0a2e196496caba2d9'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_method'
+                            position: '1'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '528459fc270b430293549bf01d43e992'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'route_direction'
+                            position: '4'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '553d1f971e294e2e9a070e628b74d420'
                         key: {
@@ -1156,6 +1442,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '584a64cc946842e3a4634080df9c8a3e'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'municipality'
+                            position: '7'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: '59fe06f2bdad419a93fc27f04d856e28'
                         key: {
@@ -1164,6 +1472,58 @@ declare global {
                             value: 'needs_review'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            caption: 'How it was located'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: '5ab4e55f3d064dce87714fee51e5740e'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            caption: 'Crash'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '5bb48acaa5fc4f65a4ed2185e6726a02'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '34eff3312d324c9d9edba50bd68043e2'
+                            position: '0'
                         }
                     },
                     {
@@ -1226,6 +1586,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '5f8c7c1518c84cafa50414f14066647c'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '2'
                         }
                     },
                     {
@@ -1324,6 +1706,28 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: '6b26f1595af24c2a8ec3f7ff42857ff3'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'reported_milemarker'
+                            position: '4'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: '6d055c1755ac47faa8bd4c87ca32a20e'
                         key: {
                             sys_ui_section: {
@@ -1351,6 +1755,28 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'number'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '7092ea5a9d1b41cc9c3f3704fe9fdae7'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '0967d3174128423e8cef7785b148179f'
+                            position: '0'
                         }
                     },
                     {
@@ -1384,6 +1810,28 @@ declare global {
                             value: 'off_network'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '7317b59409c24cbe844ad7756f68108c'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '0'
                         }
                     },
                     {
@@ -1567,6 +2015,50 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '804f256175ec47d9be3687e62d3b39cf'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'reported_route'
+                            position: '3'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '84286866e4e040fda3e9c8663720334a'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'latitude'
+                            position: '6'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '84a438588f674916810417da80d2a388'
                         key: {
@@ -1649,6 +2141,28 @@ declare global {
                         id: '89c2ebeb803b4a739937f855fe824ed8'
                         key: {
                             name: 'x_1000748_cls_crash'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '8ab2da4547a842619316d8f885903a77'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '6'
                         }
                     },
                     {
@@ -1756,12 +2270,67 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_form_section'
+                        id: '9221a5ad8d584c6ba2b211a99ec4d973'
+                        key: {
+                            sys_ui_form: {
+                                id: '05bfccf1f77947e7b70fa5e7657b7204'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '926da67974334458a6f8428126e8c807'
                         key: {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'candidate_score'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: '95ceb89b3fce4c889454cac26f29d688'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '0'
                         }
                     },
                     {
@@ -1829,6 +2398,50 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: 'a0a2718fc3f84f2c9d429ee3ba92ef51'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'crash_datetime'
+                            position: '2'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'a0f9a48804044f359ffed55a5cf7d25c'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_state'
+                            position: '4'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: 'a12f4cc6f7ec4b24a26b35a7d68f1fa9'
                         key: {
                             sys_ui_section: {
@@ -1863,6 +2476,28 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'location_text'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'a55684707005419aa75738e894879c6d'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.begin_split'
+                            position: '1'
                         }
                     },
                     {
@@ -1962,6 +2597,43 @@ declare global {
                     },
                     {
                         table: 'sys_ui_element'
+                        id: 'ae450bb1305444bf886e9bac2079e0d0'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '4'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_section'
+                        id: 'b05a58b02106492a86e0e41769dc8158'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            caption: 'Resolved location'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
                         id: 'b1152cd12839449695b5fe41a3f69084'
                         key: {
                             sys_ui_section: {
@@ -1989,6 +2661,28 @@ declare global {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'crash'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'b34ea82e917342b6b73a3b204d25f9bd'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'snap_distance_m'
+                            position: '3'
                         }
                     },
                     {
@@ -2065,6 +2759,21 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_section'
+                        id: 'baaf911e70154c3e8655a2e2315e50d9'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            caption: 'As reported'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'bb01e2302d514a199d5489a24d84fc54'
                         key: {
@@ -2085,10 +2794,76 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'bc5a1686aa5a463c84ae770f9d425126'
+                        key: {
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'street_name'
+                            position: '6'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'be22135620904474b5185e90e1b17e67'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '8'
+                        }
+                    },
+                    {
                         table: 'sys_user_role'
                         id: 'be2f37f557434266902276a4b42e18b4'
                         key: {
                             name: 'x_1000748_cls.workspace_admin'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'bfd778d012bf4f949aedd493c5009c2d'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'longitude'
+                            position: '7'
                         }
                     },
                     {
@@ -2235,6 +3010,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: 'd49c217a19244f01b0ac81f9ae34c7da'
+                        key: {
+                            sys_ui_section: {
+                                id: 'baaf911e70154c3e8655a2e2315e50d9'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'As reported'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.split'
+                            position: '5'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'd9dd2a97ea6d4f22a92f4315cfd1443c'
                         key: {
@@ -2294,6 +3091,28 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'measure'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'e2f2daa98bb84fbb8cc59247a4eef982'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_confidence'
+                            position: '5'
                         }
                     },
                     {
@@ -2412,12 +3231,67 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_form_section'
+                        id: 'f00ea5d6c6b44a76a344b9808cdd4753'
+                        key: {
+                            sys_ui_form: {
+                                id: '05bfccf1f77947e7b70fa5e7657b7204'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            sys_ui_section: {
+                                id: 'b05a58b02106492a86e0e41769dc8158'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Resolved location'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'f73a53a04c4c465a8ed633fbc4f325cb'
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'geocode_confidence'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'f78e08b1534f41abb6eba1aa60dd14f8'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'number'
+                            position: '1'
                         }
                     },
                     {
@@ -2441,6 +3315,28 @@ declare global {
                                 }
                             }
                             sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'fe7ff5faab7547968a075471cd14cf56'
+                        key: {
+                            sys_ui_section: {
+                                id: '59ff7ad0af5d493c8f03a7dec25b7235'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'How it was located'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_message'
+                            position: '5'
                         }
                     },
                 ]

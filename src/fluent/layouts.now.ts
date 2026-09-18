@@ -136,3 +136,111 @@ List({
         'geocode_state',
     ],
 })
+
+/**
+ * The crash form.
+ *
+ * Without this, the platform auto-generates a layout from schema order and
+ * alternates the fields across two columns — which put Latitude and Longitude in
+ * different sections, Measure nowhere near Route ID, and Reported route nowhere
+ * near Reported milemarker. Every pair the reader has to compare was split up.
+ *
+ * The sections are the ones the schema comments already describe, in the order
+ * the record actually happens: what came in, where it resolved to, and how it
+ * got there. The reported values and the resolved values are kept visibly apart
+ * for the same reason `candidate_*` and `resolved_*` are apart on the review —
+ * the source report is evidence, not truth, and the form should never let the
+ * two blur together.
+ */
+export const crashForm = Form({
+    table: 'x_1000748_cls_crash',
+    view: default_view,
+    sections: [
+        {
+            caption: 'Crash',
+            content: [
+                {
+                    layout: 'two-column',
+                    leftElements: [
+                        { field: 'number', type: 'table_field' },
+                        { field: 'crash_datetime', type: 'table_field' },
+                    ],
+                    rightElements: [
+                        { field: 'geocode_state', type: 'table_field' },
+                        { field: 'geocode_confidence', type: 'table_field' },
+                    ],
+                },
+            ],
+        },
+        {
+            caption: 'As reported',
+            content: [
+                {
+                    layout: 'one-column',
+                    elements: [
+                        {
+                            type: 'annotation',
+                            annotationId: Now.ID['ann-crash-reported'],
+                            text: 'Exactly what the crash report said, kept verbatim. Geocoding reads these and never writes back to them, so the source is always recoverable.',
+                            annotationType: AnnotationType.Info_Box_Blue,
+                        },
+                        { field: 'location_text', type: 'table_field' },
+                    ],
+                },
+                {
+                    layout: 'two-column',
+                    leftElements: [
+                        { field: 'reported_route', type: 'table_field' },
+                        { field: 'reported_milemarker', type: 'table_field' },
+                    ],
+                    rightElements: [
+                        { field: 'latitude', type: 'table_field' },
+                        { field: 'longitude', type: 'table_field' },
+                    ],
+                },
+            ],
+        },
+        {
+            caption: 'Resolved location',
+            content: [
+                {
+                    layout: 'one-column',
+                    elements: [
+                        {
+                            type: 'annotation',
+                            annotationId: Now.ID['ann-crash-resolved'],
+                            text: 'Route ID + Measure is the stored truth — a position along a route, in miles from its start. Coordinates above are an input; these two survive the road being re-surveyed. Street and municipality are read back from the Road Inventory.',
+                            annotationType: AnnotationType.Info_Box_Blue,
+                        },
+                    ],
+                },
+                {
+                    layout: 'two-column',
+                    leftElements: [
+                        { field: 'route_id', type: 'table_field' },
+                        { field: 'measure', type: 'table_field' },
+                        { field: 'route_direction', type: 'table_field' },
+                    ],
+                    rightElements: [
+                        { field: 'street_name', type: 'table_field' },
+                        { field: 'municipality', type: 'table_field' },
+                    ],
+                },
+            ],
+        },
+        {
+            caption: 'How it was located',
+            content: [
+                {
+                    layout: 'two-column',
+                    leftElements: [{ field: 'geocode_method', type: 'table_field' }],
+                    rightElements: [{ field: 'snap_distance_m', type: 'table_field' }],
+                },
+                {
+                    layout: 'one-column',
+                    elements: [{ field: 'geocode_message', type: 'table_field' }],
+                },
+            ],
+        },
+    ],
+})
