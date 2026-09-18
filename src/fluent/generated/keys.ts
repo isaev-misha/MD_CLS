@@ -448,6 +448,13 @@ declare global {
                 }
                 composite: [
                     {
+                        table: 'sys_ux_form_action'
+                        id: '019d6281b24d497ca6c6ce5502d65096'
+                        key: {
+                            ui_action: 'c2f7701da24147acaf0cbe0934eb02f1'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: '02b3dacf5c06483cafe71904277f4fe8'
                         key: {
@@ -695,6 +702,13 @@ declare global {
                         key: {
                             name: 'x_1000748_cls_crash'
                             element: 'route_id'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_form_action'
+                        id: '124afa7e2cea47e8b763ef88950e308a'
+                        key: {
+                            ui_action: '8dffbdcdcf2747b382aece7ff6801cea'
                         }
                     },
                     {
@@ -1425,6 +1439,13 @@ declare global {
                             name: 'x_1000748_cls_geocode_review'
                             element: 'resolution_note'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_form_action'
+                        id: '56fc761b72f24e46945dda9fb1f25f36'
+                        key: {
+                            ui_action: 'd1c2c0686344477b9950ff3092e95a76'
                         }
                     },
                     {
@@ -2578,6 +2599,13 @@ declare global {
                             name: 'x_1000748_cls_crash'
                             element: 'geocode_method'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_form_action'
+                        id: 'a81f5f01c08f48848d8606f409ea50e0'
+                        key: {
+                            ui_action: '0b9b076bcfe543b69a54ebb958b277f5'
                         }
                     },
                     {

@@ -111,74 +111,50 @@ Reported and resolved stay in **separate sections** for the same reason
 take the officer's report for the resolved answer, which is the one thing the form
 must not allow.
 
-### The workspace does not route — the cause is the app's SCOPE, measured
+### The workspace DOES route — a scoped app's experience lives under /x/, not /now/
 
-`/now/crash-location/home` returns the classic "Page not found" (27 KB) while
-`/now/cmdb/home`, `/now/ef-demo/home` and `/now/lists-demo/home` return 157-378 KB.
+**Corrects everything written here before 2026-09-18.** The workspace was never broken.
 
-**Root cause, reproduced on dev412677 on 2026-09-18.** Two *identical* pairs of records
-(`sys_ux_app_config` + `sys_ux_page_registry`) were created via REST seconds apart, differing
-only in `sys_scope` / `sys_package`:
+| URL | Result |
+|---|---|
+| `/now/crash-location/home` | Classic 404 — this URL shape is for **global**-scope experiences |
+| `/x/1000748/crash-location/home` | **Works** — 172 KB, the real workspace |
+| `/x/1000748/crash-location/record/x_1000748_cls_crash/<sys_id>` | Works |
 
-| Records created in | URL | Result |
-|---|---|---|
-| `global` | `/now/cls-diag/home` | **Resolves** — 161 KB app shell |
-| `x_1000748_cls` | `/now/cls-diag-scoped/home` | **Classic 404** — 27.9 KB |
+The path is `/x/<the digits of the vendor prefix>/<workspace path>/...`. For
+`x_1000748_cls` that is `/x/1000748/`. Nothing was missing from the record graph, the
+ACL was fine, and the cache was fine — every hour spent on those was spent on a URL typo.
 
-Both temporary experiences have been deleted. Nothing else differed: same `path` shape, same
-`root_macroponent` (Workspace App Shell `c276387c…`), same `parent_app`, same
-`admin_panel_table`, same `landing_path`.
+The earlier "it is the scope" experiment was real but misread: a throwaway experience
+created in **global** answered at `/now/cls-diag/home`, and the identical one created in
+**the app's scope** 404'd at `/now/cls-diag-scoped/home`. That was the `/x/` rule showing
+itself. The scoped one would have answered at `/x/1000748/cls-diag/home`, which was never
+tried. Scope does not break routing; it changes the URL prefix.
 
-**Two records are enough to make a path resolve.** The working throwaway had *no*
-`sys_ux_app_route`, *no* `sys_ux_screen`, no macroponent of its own and no `ux_route` ACL. So
-none of those can be what is missing from ours.
+Lesson worth keeping: when every record checks out, question the URL before the data.
 
-That exonerates everything previously suspected, each now measured rather than assumed:
+### UI actions need a sys_ux_form_action row, not just the workspace flags
 
-- **Our records are correct.** Full-field diffs of both the page registry and the app config
-  against `ef-demo` and `lists-demo` show differences *only* in sys_id, path, title, audit
-  fields and scope. Every functional field matches.
-- **The supporting graph resolves.** All four routes exist (including `route_type=home`), the
-  screens exist, and the macroponents they point at exist and are named.
-- **The ACL is right.** `now.crash-location.*` exists, active, `admin_overrides`, operation
-  `read`, and carries the same `type` sys_id as every OOB `ux_route` ACL.
-- **Not cache.** `/cache.do` then re-probe: unchanged.
-- **Not business-rule bypass by the XML install.** Forcing a real update on the registry record
-  so the `before` rules run changes nothing.
-- **Not `parent_app`.** Swapping it to UXR Base Unified App (`c4b650c2…`, the value the
-  "Enforce default parent app on creation" rule would set) changes nothing.
-- **Not scope flags.** Vendor `sn_*` scoped apps serve experiences fine, and their `sys_scope`
-  differs from ours only by being *more* restricted (`private=true`, `can_edit_in_studio=false`).
+Second half of the same afternoon, and the reason the workspace looked empty even once it
+was reachable. `workspace: { isConfigurableWorkspace: true, showFormButtonV2: true }` on a
+`UiAction` is **necessary and not sufficient**.
 
-**Open question, and the next step.** `x_1000748_cls` is the only `x_`-prefixed app on this PDI,
-so "any customer-scoped app" and "this app specifically" are not yet separated. Scaffold a
-throwaway second `x_` app and put a two-record experience in it:
+It sets `format_for_configurable_workspace` and `form_button_v2` on `sys_ui_action`, which
+the workspace consults only for actions already registered as declarative actions for the
+table. Registration is a row in **`sys_ux_form_action`**, and the SDK's `UiAction` emits
+none.
 
-- if it also 404s, the platform will not serve an experience owned by a customer scope here, and
-  the fix is to emit the page registry + app config into `global` — which Fluent's `Workspace()`
-  may not support, since it puts everything in the app's scope;
-- if it resolves, something about this app's registration is at fault, not scope in general.
+Measured: with both flags true and no `sys_ux_form_action` row, the workspace record page
+for a crash offered **Save and Delete and nothing else**, and its overflow menu held only
+Delete. Inserting one row for Geocode made the button appear on the very next load, with no
+other change. `src/fluent/ui-actions.now.ts` now declares all four rows as raw
+`Record({ table: 'sys_ux_form_action' })`, with `action_type: 'ui_action'` and
+`specificity: 20` (what the OOB table-specific rows use).
 
-**Working on these tables by REST, which is how all of the above was measured:**
+Fluent will not accept a loop, a spread, or `Now.ID[variable]` — the four rows have to be
+four literal `Record()` calls (TS244/TS303/TS305 otherwise).
 
-- From a logged-in browser, `/api/now/table/...` returns 401 without the session token. Send
-  `X-UserToken: window.g_ck`.
-- Writes to `sys_ux_page_registry` and `sys_ux_app_config` fail for admin with *"ACL Exception
-  Update Failed due to security constraints"* unless the call carries
-  `?sysparm_transaction_scope=00d8cda7d32a41ceb8e3c95deb3721b4`. The error names security, but
-  the cause is the transaction running in the wrong scope.
-- A second page registry pointing at an app config that already has one is refused by the
-  business rule *"Disallow >1 page registries per UX App"*. A diagnostic copy needs its own
-  app config.
-
-One thing that WAS wrong and is now fixed, though it did not fix the routing: the
-`ux_route` ACL name. Every OOB one is `now.<path>.*` — `now.assetworkspace.*`,
-`now.app-manager.*`. The SDK's workspace guide still shows the deprecated
-`table: 'now'` + `field: '<path>.*'` pair and warns both are ignored for `ux_route`;
-translating that to `name` means carrying the prefix across, because `table` **was**
-the `now.` prefix.
-
-### UI actions do not appear in a configurable workspace unless flagged
+### The workspace flags themselves (the other half)
 
 A configurable workspace renders **none** of a table's UI actions unless the record
 carries `format_for_configurable_workspace`. The classic form flags do not imply it, so

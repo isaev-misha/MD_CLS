@@ -1,4 +1,4 @@
-import { UiAction } from '@servicenow/sdk/core'
+import { UiAction, Record } from '@servicenow/sdk/core'
 
 /**
  * Geocode — the button pressed in scenes 2 and 3 of the demo.
@@ -7,7 +7,7 @@ import { UiAction } from '@servicenow/sdk/core'
  * The button exists so the resolution is visible happening, rather than being
  * something that already happened before anyone walked into the room.
  */
-UiAction({
+const geocodeCrash = UiAction({
     $id: Now.ID['ua-geocode-crash'],
     table: 'x_1000748_cls_crash',
     name: 'Geocode',
@@ -50,7 +50,7 @@ action.setRedirectURL(current);`,
  * is the only path that moves one into the other, and it stamps the crash with
  * `manual` so the history says a person did it.
  */
-UiAction({
+const applyResolution = UiAction({
     $id: Now.ID['ua-apply-resolution'],
     table: 'x_1000748_cls_geocode_review',
     name: 'Apply resolution',
@@ -111,7 +111,7 @@ if (!routeId || measure === null || measure === '') {
  * task: the reviewer still presses Apply. Saving typing is fine; skipping the
  * human decision is the one thing this system is built not to do.
  */
-UiAction({
+const acceptCandidate = UiAction({
     $id: Now.ID['ua-accept-candidate'],
     table: 'x_1000748_cls_geocode_review',
     name: 'Accept candidate',
@@ -146,7 +146,7 @@ action.setRedirectURL(current);`,
  * It lives on the form rather than the list, which is not where you would put it
  * by choice — see the note below.
  */
-UiAction({
+const resetDemo = UiAction({
     $id: Now.ID['ua-reset-demo'],
     table: 'x_1000748_cls_crash',
     name: 'Reset demo',
@@ -207,4 +207,73 @@ if (outcome.missing.length) {
 // A list banner button has no 'current' record — redirect by URL, not by record,
 // or this throws the moment it is pressed.
 action.setRedirectURL('x_1000748_cls_crash_list.do');`,
+})
+
+/**
+ * Register the four actions with the configurable workspace.
+ *
+ * `workspace: { isConfigurableWorkspace, showFormButtonV2 }` on the UiAction above
+ * is necessary and NOT sufficient. It sets `format_for_configurable_workspace` and
+ * `form_button_v2` on sys_ui_action — which the workspace reads only for actions
+ * that are already registered as declarative actions for the table. Registration
+ * is a row in `sys_ux_form_action`, and the SDK's UiAction does not emit one.
+ *
+ * Measured on dev412677 on 2026-09-18: with the flags set and no sys_ux_form_action
+ * row, the workspace record page offered Save and Delete and nothing else. Adding
+ * one row for Geocode made the button appear on the next load, with no other change.
+ *
+ * `specificity` 20 matches the OOB rows for table-specific actions (a global row is
+ * lower); `action_type` 'ui_action' says this wraps a classic UI action rather than
+ * a declarative action defined in UI Builder.
+ */
+Record({
+    $id: Now.ID['wsfa-geocode'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Geocode',
+        table: 'x_1000748_cls_crash',
+        ui_action: geocodeCrash,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
+})
+
+Record({
+    $id: Now.ID['wsfa-apply-resolution'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Apply resolution',
+        table: 'x_1000748_cls_geocode_review',
+        ui_action: applyResolution,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
+})
+
+Record({
+    $id: Now.ID['wsfa-accept-candidate'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Accept candidate',
+        table: 'x_1000748_cls_geocode_review',
+        ui_action: acceptCandidate,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
+})
+
+Record({
+    $id: Now.ID['wsfa-reset-demo'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Reset demo',
+        table: 'x_1000748_cls_crash',
+        ui_action: resetDemo,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
 })
