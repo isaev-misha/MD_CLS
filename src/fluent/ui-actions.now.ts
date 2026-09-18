@@ -240,6 +240,9 @@ action.setRedirectURL('x_1000748_cls_crash_list.do');`,
  * A client action with a `clientScriptV2` twin is the only shape that behaves the
  * same on both surfaces. Opening a new tab is the better behaviour anyway — the
  * reviewer keeps the record they were reading.
+ *
+ * The two scripts are NOT interchangeable: the classic one has a window and the
+ * workspace one does not. See the comment in the workspace script.
  */
 const mapCrash = UiAction({
     $id: Now.ID['ua-map-crash'],
@@ -266,10 +269,12 @@ const mapCrash = UiAction({
         isConfigurableWorkspace: true,
         showFormButtonV2: true,
         clientScriptV2: `function onClick(g_form) {
-    var table = g_form.getTableName ? g_form.getTableName() : '';
-    var sysId = g_form.getUniqueValue ? g_form.getUniqueValue() : g_form.getValue('sys_id');
-    window.open('/x_1000748_cls_crash_map.do?sysparm_table=' + table +
-        '&sysparm_sys_id=' + sysId, '_blank');
+    // A workspace client script has no window: it is bound to null, and
+    // window.open dies with "Cannot read properties of null". The sandbox
+    // provides a bare open() instead, which is what the OOB workspace actions
+    // use. Root-relative path, because relative would resolve under /x/.
+    open('/x_1000748_cls_crash_map.do?sysparm_table=' + g_form.getTableName() +
+        '&sysparm_sys_id=' + g_form.getUniqueValue());
 }`,
     },
     script: `function clsOpenCrashMap() {
@@ -304,10 +309,12 @@ const mapReview = UiAction({
         isConfigurableWorkspace: true,
         showFormButtonV2: true,
         clientScriptV2: `function onClick(g_form) {
-    var table = g_form.getTableName ? g_form.getTableName() : '';
-    var sysId = g_form.getUniqueValue ? g_form.getUniqueValue() : g_form.getValue('sys_id');
-    window.open('/x_1000748_cls_crash_map.do?sysparm_table=' + table +
-        '&sysparm_sys_id=' + sysId, '_blank');
+    // A workspace client script has no window: it is bound to null, and
+    // window.open dies with "Cannot read properties of null". The sandbox
+    // provides a bare open() instead, which is what the OOB workspace actions
+    // use. Root-relative path, because relative would resolve under /x/.
+    open('/x_1000748_cls_crash_map.do?sysparm_table=' + g_form.getTableName() +
+        '&sysparm_sys_id=' + g_form.getUniqueValue());
 }`,
     },
     script: `function clsOpenCrashMap() {
