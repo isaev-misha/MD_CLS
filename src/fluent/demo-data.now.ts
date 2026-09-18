@@ -75,21 +75,24 @@ export const crashQueue2 = Record({
     data: {
         number: 'CRSH0001031',
         crash_datetime: '2026-09-12 08:30:00',
-        location_text: 'Rt 20 WB, Marlborough',
+        location_text: 'Rt 20 EB near Granger Blvd, Marlborough',
         reported_route: '20',
-        reported_milemarker: 41.2,
-        latitude: 42.345100,
-        longitude: -71.552300,
+        // 1.1 miles up the road from where the cruiser actually was. Real
+        // measures on a real route: Route 20 through Marlborough is US20, not
+        // SR20 — a MassDOT reviewer knows their own route ids on sight.
+        reported_milemarker: 129.7021,
+        latitude: 42.345634,
+        longitude: -71.551903,
         geocode_state: 'needs_review',
         geocode_confidence: 30,
         // The GPS snapped cleanly; the disagreement is with the officer, not the
         // road network. These four are what the review copies across as its
         // candidate — without them GCR0001002 carries a candidate that no run of
         // the geocoder could have produced.
-        route_id: 'SR20 WB',
-        measure: 40.1,
-        street_name: 'Boston Post Road',
-        snap_distance_m: 8.6,
+        route_id: 'US20 EB',
+        measure: 128.6021,
+        street_name: 'GRANGER BOULEVARD',
+        snap_distance_m: 4.1,
         geocode_method: 'gps_snap',
         geocode_reason: 'conflicting_sources',
         geocode_message: 'Reported milemarker and GPS disagree by more than 1 mile',
@@ -209,11 +212,11 @@ Record({
         active: true,
         priority: 2,
         opened_at: '2026-09-12 08:31:00',
-        candidate_route_id: 'SR20 WB',
-        candidate_measure: 40.1,
-        candidate_street: 'Boston Post Road',
+        candidate_route_id: 'US20 EB',
+        candidate_measure: 128.6021,
+        candidate_street: 'GRANGER BOULEVARD',
         candidate_score: 30,
-        description: 'Officer wrote milemarker 41.2; GPS snaps near 40.1. One of them is wrong.',
+        description: 'Officer wrote milemarker 129.7; GPS snaps near 128.6. One of them is wrong.',
     },
 })
 

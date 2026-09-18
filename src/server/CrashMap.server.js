@@ -103,6 +103,7 @@ CrashMap.prototype = {
             })
         }
 
+        this._pushReportedLrs(points, grCrash.getValue('reported_route'), grCrash.getValue('reported_milemarker'))
         this._pushResolved(points, grCrash.getValue('route_id'), grCrash.getValue('measure'), 'resolved', 'Resolved position')
 
         facts.push({ label: 'Route', value: grCrash.getValue('route_id') || '—' })
@@ -139,6 +140,8 @@ CrashMap.prototype = {
                 longitude: longitude,
             })
         }
+
+        this._pushReportedLrs(points, grCrash.getValue('reported_route'), grCrash.getValue('reported_milemarker'))
 
         // The whole point of the review form, drawn: what the machine proposed
         // and what the person decided, in the same picture and not the same colour.
@@ -198,6 +201,38 @@ CrashMap.prototype = {
             latitude: located.latitude,
             longitude: located.longitude,
             street: located.street || '',
+        })
+    },
+
+    /**
+     * Where the officer said it was.
+     *
+     * A route number and a milemarker are not a position until the network says
+     * so, which is rung one of the ladder. Drawing it is the only way to make a
+     * `conflicting_sources` review mean anything: the gap on the picture IS the
+     * disagreement the reviewer has to settle.
+     */
+    _pushReportedLrs: function (points, reportedRoute, reportedMilemarker) {
+        var milemarker = this._toNumber(reportedMilemarker)
+        if (!reportedRoute || milemarker === null) {
+            return
+        }
+
+        var onNetwork = this.lrs.resolveReportedRoute(reportedRoute, milemarker)
+        if (!onNetwork.found) {
+            return
+        }
+
+        var located = this.lrs.measureToGeometry(onNetwork.routeId, onNetwork.measure)
+        if (!located.found) {
+            return
+        }
+
+        points.push({
+            kind: 'officer',
+            label: 'Officer’s milemarker',
+            latitude: located.latitude,
+            longitude: located.longitude,
         })
     },
 
@@ -387,6 +422,7 @@ CrashMap.prototype = {
             '.cls-pin-reported{background:#d9534f}' +
             '.cls-pin-resolved{background:#1a7f37}' +
             '.cls-pin-candidate{background:#b8860b}' +
+            '.cls-pin-officer{background:#2f6fb5}' +
             '.cls-legend{margin:10px 0 0;font-size:13px;color:#333}' +
             '.cls-key{margin-right:18px}' +
             '.cls-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:14px 0 0;padding:0}' +
