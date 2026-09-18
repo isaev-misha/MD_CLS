@@ -161,6 +161,10 @@ declare global {
                         table: 'sys_properties'
                         id: '16c7c1014b634d059731b608e5673ebd'
                     }
+                    'prop-map-service-url': {
+                        table: 'sys_properties'
+                        id: 'ae9938b3d9104a2aa78e37372ee8bfb8'
+                    }
                     'prop-review-threshold': {
                         table: 'sys_properties'
                         id: 'bcdfd743c0644b90aff22013a6451126'
@@ -197,6 +201,10 @@ declare global {
                         table: 'sys_script_include'
                         id: '6533a044dbae4a579d58a42f018e10d8'
                     }
+                    'si-crash-map': {
+                        table: 'sys_script_include'
+                        id: '55e3772aa83f424298745480aed665fd'
+                    }
                     'si-demo-reset': {
                         table: 'sys_script_include'
                         id: '44533e7127bb42cebd59952ee9092779'
@@ -208,6 +216,10 @@ declare global {
                     src_server_CrashGeocoder_server_js: {
                         table: 'sys_module'
                         id: 'ce638911480647c8921943ce89ea9ffc'
+                    }
+                    src_server_CrashMap_server_js: {
+                        table: 'sys_module'
+                        id: '7bcfe44dbe754de8b435c1fe7f7b7c0c'
                     }
                     src_server_CreateGeocodeReview_server_js: {
                         table: 'sys_module'
@@ -232,6 +244,14 @@ declare global {
                     'ua-geocode-crash': {
                         table: 'sys_ui_action'
                         id: 'd1c2c0686344477b9950ff3092e95a76'
+                    }
+                    'ua-map-crash': {
+                        table: 'sys_ui_action'
+                        id: 'bf22dcd4994641e8be5c80a896480b8d'
+                    }
+                    'ua-map-review': {
+                        table: 'sys_ui_action'
+                        id: '2438717ace4a40efb3ee70b399376871'
                     }
                     'ua-reset-demo': {
                         table: 'sys_ui_action'
@@ -786,6 +806,13 @@ declare global {
                         id: '14bf0eebe13247498328b9f100d903ca'
                         key: {
                             name: 'x_1000748_cls_crash'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_page'
+                        id: '1831743b08c4442983d014fbe57f1d6b'
+                        key: {
+                            name: 'x_1000748_cls_crash_map'
                         }
                     },
                     {
@@ -3136,6 +3163,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ux_form_action'
+                        id: 'c36180cc37374fd089cd8c49da79a223'
+                        key: {
+                            ui_action: 'bf22dcd4994641e8be5c80a896480b8d'
+                        }
+                    },
+                    {
                         table: 'sys_number'
                         id: 'c36bc30b1b234f68b333f2bd637a0b96'
                         key: {
@@ -3575,6 +3609,13 @@ declare global {
                             value: 'no_location_data'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_form_action'
+                        id: 'fb619c93c33c4726baf18e3efc2a2a97'
+                        key: {
+                            ui_action: '2438717ace4a40efb3ee70b399376871'
                         }
                     },
                     {

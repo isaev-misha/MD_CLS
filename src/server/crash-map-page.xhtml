@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+    <!--
+        The page is deliberately this thin. Everything it shows is built by
+        CrashMap.renderHtml so that Jelly never has to loop, branch or escape
+        anything — the two places a UI page usually goes wrong.
+
+        $[ ] emits the markup unescaped. Every value inside it was escaped in the
+        script include on the way out, which is where the record's own text lives.
+    -->
+    <g:evaluate var="jvar_markup">
+        var clsTable = RP.getParameterValue('sysparm_table');
+        var clsSysId = RP.getParameterValue('sysparm_sys_id');
+        new CrashMap().renderHtml(clsTable, clsSysId);
+    </g:evaluate>
+
+    $[jvar_markup]
+</j:jelly>

@@ -47,3 +47,11 @@ Property({
     description:
         'Confidence below this routes the crash to a human. Raise it to trade queue volume for accuracy. 75 means a GPS fix is accepted automatically only within 25 m of the centreline; between 25 and 50 m it is still placed, but a person is asked to confirm it. At 60 nothing inside the 50 m tolerance could ever fall below the bar, which left `low_confidence` a reason the code could never produce.',
 })
+
+Property({
+    $id: Now.ID['prop-map-service-url'],
+    name: 'x_1000748_cls.lrs.map_service_url',
+    value: 'https://gis.massdot.state.ma.us/arcgis/rest/services/Roads/RoadInventoryYearEndFiles/MapServer',
+    description:
+        "MassDOT publishes the Road Inventory as a MapServer as well as a FeatureServer. Its /export endpoint renders a PNG of the road network anonymously, which is what the Map button draws on. The layer drawn is taken from the last segment of lrs.service_url, so the map always shows the same year the geocoder queries.",
+})

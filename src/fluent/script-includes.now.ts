@@ -29,3 +29,13 @@ ScriptInclude({
         'Returns the two hero crashes to their pre-demo state and clears their review tasks, so a rehearsal can be run more than once. Leaves the staged backlog alone.',
     script: Now.include('../server/DemoReset.server.js'),
 })
+
+ScriptInclude({
+    $id: Now.ID['si-crash-map'],
+    name: 'CrashMap',
+    active: true,
+    apiName: 'x_1000748_cls.CrashMap',
+    description:
+        "Renders a crash or a review on MassDOT's Road Inventory MapServer: the reported GPS point, the point derived from route + measure via measureToGeometry, and the snap distance between them.",
+    script: Now.include('../server/CrashMap.server.js'),
+})

@@ -226,6 +226,61 @@ action.setRedirectURL('x_1000748_cls_crash_list.do');`,
  * lower); `action_type` 'ui_action' says this wraps a classic UI action rather than
  * a declarative action defined in UI Builder.
  */
+/**
+ * Map — draws the record on MassDOT's road network.
+ *
+ * The demo's central number is a distance, and a distance is far more convincing
+ * drawn than read out. On a crash it shows the reported GPS point against the
+ * position derived from route + measure; on a review it shows the geocoder's
+ * candidate against the reviewer's resolution.
+ *
+ * Server-side rather than a client `window.open`, because a client UI action
+ * needs a separate workspace client script to work in both places, and the
+ * redirect behaves in classic and in the workspace alike. The page carries its
+ * own way back.
+ */
+const mapCrash = UiAction({
+    $id: Now.ID['ua-map-crash'],
+    table: 'x_1000748_cls_crash',
+    name: 'Map',
+    actionName: 'map_crash',
+    hint: 'Draw this crash on the MassDOT road network',
+    showInsert: false,
+    showUpdate: true,
+    order: 200,
+    active: true,
+    form: {
+        showButton: true,
+        showLink: false,
+        showContextMenu: true,
+    },
+    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
+    script: `action.setRedirectURL(
+    'x_1000748_cls_crash_map.do?sysparm_table=' + current.getTableName() +
+    '&sysparm_sys_id=' + current.getUniqueValue());`,
+})
+
+const mapReview = UiAction({
+    $id: Now.ID['ua-map-review'],
+    table: 'x_1000748_cls_geocode_review',
+    name: 'Map',
+    actionName: 'map_review',
+    hint: 'Draw the candidate and the resolution on the MassDOT road network',
+    showInsert: false,
+    showUpdate: true,
+    order: 200,
+    active: true,
+    form: {
+        showButton: true,
+        showLink: false,
+        showContextMenu: true,
+    },
+    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
+    script: `action.setRedirectURL(
+    'x_1000748_cls_crash_map.do?sysparm_table=' + current.getTableName() +
+    '&sysparm_sys_id=' + current.getUniqueValue());`,
+})
+
 Record({
     $id: Now.ID['wsfa-geocode'],
     table: 'sys_ux_form_action',
@@ -272,6 +327,32 @@ Record({
         name: 'Reset demo',
         table: 'x_1000748_cls_crash',
         ui_action: resetDemo,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
+})
+
+Record({
+    $id: Now.ID['wsfa-map-crash'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Map',
+        table: 'x_1000748_cls_crash',
+        ui_action: mapCrash,
+        action_type: 'ui_action',
+        specificity: 20,
+        active: true,
+    },
+})
+
+Record({
+    $id: Now.ID['wsfa-map-review'],
+    table: 'sys_ux_form_action',
+    data: {
+        name: 'Map',
+        table: 'x_1000748_cls_geocode_review',
+        ui_action: mapReview,
         action_type: 'ui_action',
         specificity: 20,
         active: true,
