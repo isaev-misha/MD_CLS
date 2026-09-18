@@ -65,7 +65,7 @@ CrashMap.prototype = {
             )
         }
 
-        var image = this._export(this._boundingBox(gathered.points))
+        var image = this._export(this._boundingBox(gathered.points), gathered.highlight)
         if (!image) {
             return this._fail('Could not reach the MassDOT map service.')
         }
@@ -79,6 +79,8 @@ CrashMap.prototype = {
             image: image,
             points: gathered.points,
             facts: gathered.facts,
+            highlight: gathered.highlight,
+            highlightStreet: gathered.highlightStreet,
             attribution: 'MassDOT Road Inventory ' + this._layerId() + ' — public service, no licence required',
         }
     },
@@ -117,6 +119,8 @@ CrashMap.prototype = {
             subtitle: grCrash.getValue('location_text') || '',
             points: points,
             facts: facts,
+            highlight: grCrash.getValue('route_id') || '',
+            highlightStreet: grCrash.getValue('street_name') || '',
         }
     },
 
@@ -176,6 +180,10 @@ CrashMap.prototype = {
             subtitle: grReview.getValue('short_description') || '',
             points: points,
             facts: facts,
+            // The reviewer's answer wins the highlight once there is one; until
+            // then the geocoder's guess is the road under discussion.
+            highlight: grReview.getValue('resolved_route_id') || grReview.getValue('candidate_route_id') || '',
+            highlightStreet: grReview.getValue('candidate_street') || '',
         }
     },
 
@@ -261,7 +269,7 @@ CrashMap.prototype = {
         }
     },
 
-    _export: function (box) {
+    _export: function (box, highlightRouteId) {
         var params = {
             bbox: box.xmin + ',' + box.ymin + ',' + box.xmax + ',' + box.ymax,
             bboxSR: '4326',
@@ -269,8 +277,13 @@ CrashMap.prototype = {
             size: this.width + ',' + this.height,
             format: 'png',
             transparent: 'false',
-            layers: 'show:' + this._layerId(),
             f: 'json',
+        }
+
+        if (highlightRouteId) {
+            params.dynamicLayers = this._highlightLayers(highlightRouteId)
+        } else {
+            params.layers = 'show:' + this._layerId()
         }
 
         try {
@@ -305,6 +318,61 @@ CrashMap.prototype = {
             gs.error('[CrashMap] ' + ex)
             return null
         }
+    },
+
+    /**
+     * Draw the route this record sits on in red, with its street names along it.
+     *
+     * Without this the picture is a hundred identical hairlines and a pin, and
+     * the first question from the room is "which one is Route 20?". The service
+     * advertises supportsDynamicLayers, so the same layer is drawn twice: once
+     * plainly, then again filtered to this route with a heavier symbol.
+     *
+     * `showLabels` is the part that is easy to miss — labelingInfo alone renders
+     * nothing at all, silently.
+     */
+    _highlightLayers: function (routeId) {
+        var layerId = parseInt(this._layerId(), 10)
+        var safeRoute = String(routeId).replace(/'/g, "''")
+
+        return JSON.stringify([
+            { id: layerId, source: { type: 'mapLayer', mapLayerId: layerId } },
+            {
+                id: layerId + 900,
+                source: { type: 'mapLayer', mapLayerId: layerId },
+                definitionExpression: "route_id='" + safeRoute + "'",
+                minScale: 0,
+                maxScale: 0,
+                drawingInfo: {
+                    renderer: {
+                        type: 'simple',
+                        symbol: {
+                            type: 'esriSLS',
+                            style: 'esriSLSSolid',
+                            color: [214, 69, 65, 255],
+                            width: 5,
+                        },
+                    },
+                    showLabels: true,
+                    labelingInfo: [
+                        {
+                            labelPlacement: 'esriServerLinePlacementAboveAlong',
+                            labelExpression: '[St_Name]',
+                            useCodedValues: false,
+                            minScale: 0,
+                            maxScale: 0,
+                            symbol: {
+                                type: 'esriTS',
+                                color: [20, 20, 20, 255],
+                                haloColor: [255, 255, 255, 255],
+                                haloSize: 2,
+                                font: { family: 'Arial', size: 11, weight: 'bold' },
+                            },
+                        },
+                    ],
+                },
+            },
+        ])
     },
 
     _placeOnImage: function (points, image) {
@@ -373,6 +441,15 @@ CrashMap.prototype = {
                 '</dd></div>'
         }
 
+        if (data.highlight) {
+            legend =
+                '<span class="cls-key"><i class="cls-line"></i>' +
+                this._esc(data.highlight) +
+                (data.highlightStreet ? ' — ' + this._esc(data.highlightStreet) : '') +
+                '</span>' +
+                legend
+        }
+
         return (
             '<div class="cls-map-wrap">' +
             '<h2>' +
@@ -423,6 +500,7 @@ CrashMap.prototype = {
             '.cls-pin-resolved{background:#1a7f37}' +
             '.cls-pin-candidate{background:#b8860b}' +
             '.cls-pin-officer{background:#2f6fb5}' +
+            '.cls-line{display:inline-block;width:16px;height:4px;border-radius:2px;background:#d64541;margin-right:6px;vertical-align:middle}' +
             '.cls-legend{margin:10px 0 0;font-size:13px;color:#333}' +
             '.cls-key{margin-right:18px}' +
             '.cls-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:14px 0 0;padding:0}' +
