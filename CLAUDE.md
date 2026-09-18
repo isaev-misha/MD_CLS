@@ -111,43 +111,72 @@ Reported and resolved stay in **separate sections** for the same reason
 take the officer's report for the resolved answer, which is the one thing the form
 must not allow.
 
-### The workspace does not route yet — open problem
+### The workspace does not route — the cause is the app's SCOPE, measured
 
-`src/fluent/workspaces/crash-location/` declares a `Workspace`, a `UxListMenuConfig`
-and a `Dashboard`, it builds and installs cleanly, and **`/now/crash-location/home`
-returns "Page not found"** — every route, bare path included, for an admin.
+`/now/crash-location/home` returns the classic "Page not found" (27 KB) while
+`/now/cmdb/home`, `/now/ef-demo/home` and `/now/lists-demo/home` return 157-378 KB.
 
-Do not spend the afternoon looking for a missing record. Verified present, in scope,
-active and correctly cross-linked on dev412677: the page registry, the app config
-(`landing_path=home`), four UX app routes, four screens each with a Page Definition,
-four screen types, the root macroponent ("Workspace App Shell"). The registry record
-is field-for-field identical to the working CMDB workspace apart from its own ids.
+**Root cause, reproduced on dev412677 on 2026-09-18.** Two *identical* pairs of records
+(`sys_ux_app_config` + `sys_ux_page_registry`) were created via REST seconds apart, differing
+only in `sys_scope` / `sys_package`:
 
-Also ruled out, each by measurement:
+| Records created in | URL | Result |
+|---|---|---|
+| `global` | `/now/cls-diag/home` | **Resolves** — 161 KB app shell |
+| `x_1000748_cls` | `/now/cls-diag-scoped/home` | **Classic 404** — 27.9 KB |
 
-- **Roles** — the `claude` user has `admin`, `x_1000748_cls.reviewer` and `canvas_user`.
-- **Cache** — flushed via `/cache.do`, no change.
-- **The URL pattern** — `/now/cmdb/home`, `/now/ef-demo/home`, `/now/app-manager/home`
-  and two other custom experiences all resolve. Ours is uniquely unreachable.
-- **The 404 itself** — it is the *classic* not-found page (27 KB, `notfound_message`),
-  not the UX router's. A resolving experience returns ~160-380 KB. So the platform
-  never recognises `crash-location` as a UX path at all.
+Both temporary experiences have been deleted. Nothing else differed: same `path` shape, same
+`root_macroponent` (Workspace App Shell `c276387c…`), same `parent_app`, same
+`admin_panel_table`, same `landing_path`.
 
-UI Builder opens the experience with an empty canvas, which points at the record graph
-rather than at routing config, but nothing in that graph is visibly wrong.
+**Two records are enough to make a path resolve.** The working throwaway had *no*
+`sys_ux_app_route`, *no* `sys_ux_screen`, no macroponent of its own and no `ux_route` ACL. So
+none of those can be what is missing from ours.
 
-**Next step when this is picked up:** build a throwaway workspace through the platform's
-own UI, then diff its `sys_ux_*` records against ours. That gives ground truth on what
-the SDK's `Workspace` plugin does not emit, which is the only remaining theory.
+That exonerates everything previously suspected, each now measured rather than assumed:
+
+- **Our records are correct.** Full-field diffs of both the page registry and the app config
+  against `ef-demo` and `lists-demo` show differences *only* in sys_id, path, title, audit
+  fields and scope. Every functional field matches.
+- **The supporting graph resolves.** All four routes exist (including `route_type=home`), the
+  screens exist, and the macroponents they point at exist and are named.
+- **The ACL is right.** `now.crash-location.*` exists, active, `admin_overrides`, operation
+  `read`, and carries the same `type` sys_id as every OOB `ux_route` ACL.
+- **Not cache.** `/cache.do` then re-probe: unchanged.
+- **Not business-rule bypass by the XML install.** Forcing a real update on the registry record
+  so the `before` rules run changes nothing.
+- **Not `parent_app`.** Swapping it to UXR Base Unified App (`c4b650c2…`, the value the
+  "Enforce default parent app on creation" rule would set) changes nothing.
+- **Not scope flags.** Vendor `sn_*` scoped apps serve experiences fine, and their `sys_scope`
+  differs from ours only by being *more* restricted (`private=true`, `can_edit_in_studio=false`).
+
+**Open question, and the next step.** `x_1000748_cls` is the only `x_`-prefixed app on this PDI,
+so "any customer-scoped app" and "this app specifically" are not yet separated. Scaffold a
+throwaway second `x_` app and put a two-record experience in it:
+
+- if it also 404s, the platform will not serve an experience owned by a customer scope here, and
+  the fix is to emit the page registry + app config into `global` — which Fluent's `Workspace()`
+  may not support, since it puts everything in the app's scope;
+- if it resolves, something about this app's registration is at fault, not scope in general.
+
+**Working on these tables by REST, which is how all of the above was measured:**
+
+- From a logged-in browser, `/api/now/table/...` returns 401 without the session token. Send
+  `X-UserToken: window.g_ck`.
+- Writes to `sys_ux_page_registry` and `sys_ux_app_config` fail for admin with *"ACL Exception
+  Update Failed due to security constraints"* unless the call carries
+  `?sysparm_transaction_scope=00d8cda7d32a41ceb8e3c95deb3721b4`. The error names security, but
+  the cause is the transaction running in the wrong scope.
+- A second page registry pointing at an app config that already has one is refused by the
+  business rule *"Disallow >1 page registries per UX App"*. A diagnostic copy needs its own
+  app config.
 
 One thing that WAS wrong and is now fixed, though it did not fix the routing: the
 `ux_route` ACL name. Every OOB one is `now.<path>.*` — `now.assetworkspace.*`,
 `now.app-manager.*`. The SDK's workspace guide still shows the deprecated
 `table: 'now'` + `field: '<path>.*'` pair and warns both are ignored for `ux_route`;
 translating that to `name` means carrying the prefix across, because `table` **was**
-the `now.` prefix. A non-matching name means no rule allows the route, and the failure
-looks exactly like the one above — including for admin, since `adminOverrides` only
-applies to an ACL that is actually consulted.
+the `now.` prefix.
 
 ### UI actions do not appear in a configurable workspace unless flagged
 
