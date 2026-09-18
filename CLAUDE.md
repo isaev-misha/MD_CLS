@@ -74,6 +74,55 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 | 2 forms + 2 lists | `src/fluent/layouts.now.ts` | Crash and review layouts. Neither table is readable on its generated form — see below. |
 | `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience. **Does not route yet** — see below. |
 
+### The map, and the three things that fail silently
+
+`Map` on a crash and on a review draws the record on MassDOT's own road network.
+The background is a PNG from the Road Inventory **MapServer** — the same service as the
+FeatureServer the geocoder queries, same layer — rendered by its `/export` endpoint
+anonymously. No key, no Esri licence, no credits, and no crash data leaves the instance:
+the request carries a bounding box and nothing else.
+
+`CrashMap` builds it; `crash_map` (a raw `sys_ui_page` record — Fluent has no `UiPage`)
+renders it. Markers are placed against the extent the server says it **drew**, never the
+one requested: `/export` widens the box to the image's aspect ratio, and using the
+requested box puts every marker slightly wrong.
+
+Three failures that produce no error anywhere:
+
+- **A scoped UI page must not carry the scope prefix in its name.** The platform prefixes
+  the endpoint itself, so `name: 'x_1000748_cls_crash_map'` is served at
+  `x_1000748_cls_x_1000748_cls_crash_map.do` and every sensible URL 404s. The record is
+  named `crash_map`.
+- **`$[jvar]` is phase-one Jelly.** It runs before `g:evaluate` has set the variable, so
+  the page renders its shell and no content at all. `${jvar}` inside `<g:no_escape>` is
+  the pair that works.
+- **`labelingInfo` alone renders no labels.** It needs `showLabels: true` beside it in
+  `drawingInfo`, and without it the image comes back looking as though the whole
+  highlight failed.
+
+The route the record sits on is highlighted and labelled via `dynamicLayers` (the service
+advertises `supportsDynamicLayers`): the layer is drawn twice, once plainly and once
+filtered to `route_id='<this route>'` with a heavy symbol. Without it the picture is a
+hundred identical hairlines and a pin.
+
+### Route ids are real, and the demo data has to match them
+
+Building the map proved the staged data wrong. `SR20 WB` is not a route id — Route 20
+through Marlborough is **`US20`**, a US route — so `measureToGeometry` returned nothing and
+the pin never drew. The staged coordinates were not on Route 20 either; they snapped 30 m
+onto a local street called NEW STREET.
+
+Anything invented here is visible to a MassDOT evaluator instantly. Check a route id and
+its measure range against the service before staging it:
+
+```
+.../FeatureServer/10/query?where=route_id='US20 EB'&outFields=route_id,from_measure,to_measure&returnGeometry=false&f=json
+```
+
+Verified in use: `US20 EB` (0–153.41), `SR9 EB` (0–135.57), `SR30 EB` (0–36.38),
+`I90 EB` (0–138.09). CRSH0001031 now sits at US20 EB / 128.6021 on GRANGER BOULEVARD, with
+the officer's milemarker 1.1 miles away at 129.7021.
+
 ### The demo script is a Claude doc, not a file here
 
 The run-of-show — the argument, Before you start, Scenes 1-5 with the exact lines and verified
