@@ -27,7 +27,19 @@ const geocodeCrash = UiAction({
     // are flagged for it — the workspace record page showed only Save and Delete
     // until this was set. `form.showButton` governs the classic form; this governs
     // the workspace, and both are needed because the demo uses both.
-    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormButtonV2: true,
+        // A server action leaves the workspace form holding the values it loaded
+        // BEFORE the action ran. Press this, then press Save, and the stale copy
+        // is written straight back over what the server just decided — which is
+        // how CRSH0001042 ended up carrying a route and a measure while still
+        // saying Pending. Submitting through g_form makes the workspace treat it
+        // as a form submission and reload the record afterwards.
+        clientScriptV2: `function onClick(g_form) {
+    g_form.submit('geocode_crash');
+}`,
+    },
     script: `var geocoder = new CrashGeocoder();
 var outcome = geocoder.geocodeRecord(current);
 
@@ -69,7 +81,19 @@ const applyResolution = UiAction({
     },
     // The button the whole demo turns on. Primary in the workspace, not tucked
     // into the overflow menu.
-    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormButtonV2: true,
+        // A server action leaves the workspace form holding the values it loaded
+        // BEFORE the action ran. Press this, then press Save, and the stale copy
+        // is written straight back over what the server just decided — which is
+        // how CRSH0001042 ended up carrying a route and a measure while still
+        // saying Pending. Submitting through g_form makes the workspace treat it
+        // as a form submission and reload the record afterwards.
+        clientScriptV2: `function onClick(g_form) {
+    g_form.submit('apply_geocode_resolution');
+}`,
+    },
     script: `var routeId = current.getValue('resolved_route_id');
 var measure = current.getValue('resolved_measure');
 
@@ -127,7 +151,19 @@ const acceptCandidate = UiAction({
         showLink: false,
         showContextMenu: true,
     },
-    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormButtonV2: true,
+        // A server action leaves the workspace form holding the values it loaded
+        // BEFORE the action ran. Press this, then press Save, and the stale copy
+        // is written straight back over what the server just decided — which is
+        // how CRSH0001042 ended up carrying a route and a measure while still
+        // saying Pending. Submitting through g_form makes the workspace treat it
+        // as a form submission and reload the record afterwards.
+        clientScriptV2: `function onClick(g_form) {
+    g_form.submit('accept_geocode_candidate');
+}`,
+    },
     script: `current.setValue('resolved_route_id', current.getValue('candidate_route_id'));
 current.setValue('resolved_measure', current.getValue('candidate_measure'));
 current.update();
@@ -193,7 +229,19 @@ const resetDemo = UiAction({
         showLink: false,
         showContextMenu: true,
     },
-    workspace: { isConfigurableWorkspace: true, showFormMenuButtonV2: true },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormMenuButtonV2: true,
+        // A server action leaves the workspace form holding the values it loaded
+        // BEFORE the action ran. Press this, then press Save, and the stale copy
+        // is written straight back over what the server just decided — which is
+        // how CRSH0001042 ended up carrying a route and a measure while still
+        // saying Pending. Submitting through g_form makes the workspace treat it
+        // as a form submission and reload the record afterwards.
+        clientScriptV2: `function onClick(g_form) {
+    g_form.submit('reset_crash_demo');
+}`,
+    },
     script: `var outcome = new DemoReset().run();
 
 gs.addInfoMessage('Demo reset: ' + outcome.crashes + ' crash(es) back to Pending, ' +

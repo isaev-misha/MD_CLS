@@ -105,6 +105,24 @@ advertises `supportsDynamicLayers`): the layer is drawn twice, once plainly and 
 filtered to `route_id='<this route>'` with a heavy symbol. Without it the picture is a
 hundred identical hairlines and a pin.
 
+### A UI action that opens a page has to be client-side, and the workspace has no `window`
+
+The Map button is the second action to hit this, and both failures look like the button
+is dead rather than like an error.
+
+- **`action.setRedirectURL()` is a classic-form mechanism.** In a configurable workspace
+  the button renders, the server script runs, and the redirect is discarded. Nothing
+  happens and nothing is logged. A UI action that navigates has to be `client`, with a
+  `workspace.clientScriptV2` twin — the SDK supports both on the same record.
+- **The workspace client sandbox has no `window`.** It is bound to `null`, so
+  `window.open(...)` fails with *"Cannot read properties of null (reading 'open')"* in the
+  browser console — the one failure here that does say something. The sandbox provides a
+  bare `open(url)` instead, which is what every OOB workspace action uses
+  (`sn_ace_page` → "Open Editor" is the clearest example to copy).
+- The two scripts are **not** interchangeable: classic has a `window` and uses
+  `window.open`; the workspace one must not. Give the workspace one a root-relative path
+  (`/x_1000748_cls_crash_map.do?...`), since a relative one resolves under `/x/…`.
+
 ### Route ids are real, and the demo data has to match them
 
 Building the map proved the staged data wrong. `SR20 WB` is not a route id — Route 20
