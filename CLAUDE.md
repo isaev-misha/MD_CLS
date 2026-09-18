@@ -71,7 +71,32 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 | Geocode / Apply resolution / Accept candidate | `src/fluent/ui-actions.now.ts` | The three buttons the demo presses. |
 | 5 properties | `src/fluent/properties.now.ts` | Endpoint, radius, timeout, tolerance, threshold. |
 | 8 crashes + 6 reviews | `src/fluent/demo-data.now.ts` | Staged demo content (`installMethod: 'demo'`). |
+| 2 forms + 2 lists | `src/fluent/layouts.now.ts` | Crash and review layouts. Neither table is readable on its generated form — see below. |
 | `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience. **Does not route yet** — see below. |
+
+### Both forms are laid out by hand, for different reasons
+
+Neither table is usable on the form the platform generates for it, and the two
+failures are not the same one.
+
+`x_1000748_cls_geocode_review` extends `task`, so it inherits task's form — which
+knows nothing about `candidate_*` or `resolved_*` and therefore shows neither.
+Scene 4 is entirely about reading those two groups side by side.
+
+`x_1000748_cls_crash` had no form at all, so the platform built one from schema
+column order and dealt the fields alternately left and right. That splits every
+pair a reader compares: Latitude and Longitude landed in different sections,
+Measure nowhere near Route ID, Reported milemarker nowhere near Reported route.
+The generated layout actively argued against the data model — coordinates read as
+the answer and route + measure as an afterthought. Four sections now carry the
+record in the order it happens: Crash, As reported, Resolved location, How it was
+located, with route_id directly above measure and the coordinates kept up in the
+reported block where they belong.
+
+Reported and resolved stay in **separate sections** for the same reason
+`candidate_*` and `resolved_*` do on the review. Merging them would let a reader
+take the officer's report for the resolved answer, which is the one thing the form
+must not allow.
 
 ### The workspace does not route yet — open problem
 
