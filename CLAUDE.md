@@ -74,6 +74,19 @@ Also noted for later: `gis.crashdata.dot.mass.gov` hosts MassDOT's own IMPACT cr
 | 2 forms + 2 lists | `src/fluent/layouts.now.ts` | Crash and review layouts. Neither table is readable on its generated form — see below. |
 | `Crash Location Services` workspace | `src/fluent/workspaces/crash-location/` | Reviewer experience. **Does not route yet** — see below. |
 
+### The demo script is a Claude doc, not a file here
+
+The run-of-show — the argument, Before you start, Scenes 1-5 with the exact lines and verified
+field values, the questions to expect, and a "Do not demo these" table — lives at
+<https://claude.ai/code/artifact/f6581acb-4a7a-478f-abd1-c5565892ac8e>
+(*Crash Location Services — Demo Run-of-Show*). It is edited in place and is the living copy;
+it is deliberately **not** duplicated into this repo, because two copies of a script drift the
+same way `DemoReset` and `demo-data.now.ts` do.
+
+Read and edit it with the Claude Docs tools — never fetch the URL as a web page. A change here
+that alters what a presenter sees on screen (a form layout, where a UI action sits, a field that
+stops being written) needs its stage direction updated there in the same sitting.
+
 ### Both forms are laid out by hand, for different reasons
 
 Neither table is usable on the form the platform generates for it, and the two
