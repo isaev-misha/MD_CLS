@@ -811,6 +811,7 @@ declare global {
                     {
                         table: 'sys_ui_page'
                         id: '1831743b08c4442983d014fbe57f1d6b'
+                        deleted: true
                         key: {
                             name: 'x_1000748_cls_crash_map'
                         }
@@ -3408,6 +3409,13 @@ declare global {
                             }
                             element: 'number'
                             position: '1'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_page'
+                        id: 'e4d76421f4944d93a57beabe622196d2'
+                        key: {
+                            name: 'crash_map'
                         }
                     },
                     {

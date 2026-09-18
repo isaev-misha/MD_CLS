@@ -5,8 +5,10 @@
         CrashMap.renderHtml so that Jelly never has to loop, branch or escape
         anything — the two places a UI page usually goes wrong.
 
-        $[ ] emits the markup unescaped. Every value inside it was escaped in the
-        script include on the way out, which is where the record's own text lives.
+        g:no_escape emits the markup as-is. Every value inside it was escaped in
+        the script include on the way out, which is where the record's own text
+        lives. Note ${...}, not $[...]: $[ ] is phase-one Jelly and runs before
+        g:evaluate has set the variable, so it silently emits nothing at all.
     -->
     <g:evaluate var="jvar_markup">
         var clsTable = RP.getParameterValue('sysparm_table');
@@ -14,5 +16,5 @@
         new CrashMap().renderHtml(clsTable, clsSysId);
     </g:evaluate>
 
-    $[jvar_markup]
+    <g:no_escape>${jvar_markup}</g:no_escape>
 </j:jelly>
