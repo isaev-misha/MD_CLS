@@ -234,10 +234,12 @@ action.setRedirectURL('x_1000748_cls_crash_list.do');`,
  * position derived from route + measure; on a review it shows the geocoder's
  * candidate against the reviewer's resolution.
  *
- * Server-side rather than a client `window.open`, because a client UI action
- * needs a separate workspace client script to work in both places, and the
- * redirect behaves in classic and in the workspace alike. The page carries its
- * own way back.
+ * CLIENT side, and it has to be. The first version was a server action calling
+ * `action.setRedirectURL()`, which is a classic-form mechanism: in a configurable
+ * workspace the button rendered, the script ran, and absolutely nothing happened.
+ * A client action with a `clientScriptV2` twin is the only shape that behaves the
+ * same on both surfaces. Opening a new tab is the better behaviour anyway — the
+ * reviewer keeps the record they were reading.
  */
 const mapCrash = UiAction({
     $id: Now.ID['ua-map-crash'],
@@ -254,10 +256,27 @@ const mapCrash = UiAction({
         showLink: false,
         showContextMenu: true,
     },
-    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
-    script: `action.setRedirectURL(
-    'x_1000748_cls_crash_map.do?sysparm_table=' + current.getTableName() +
-    '&sysparm_sys_id=' + current.getUniqueValue());`,
+    client: {
+        isClient: true,
+        isUi11Compatible: true,
+        isUi16Compatible: true,
+        onClick: 'clsOpenCrashMap()',
+    },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormButtonV2: true,
+        clientScriptV2: `function onClick(g_form) {
+    var table = g_form.getTableName ? g_form.getTableName() : '';
+    var sysId = g_form.getUniqueValue ? g_form.getUniqueValue() : g_form.getValue('sys_id');
+    window.open('/x_1000748_cls_crash_map.do?sysparm_table=' + table +
+        '&sysparm_sys_id=' + sysId, '_blank');
+}`,
+    },
+    script: `function clsOpenCrashMap() {
+    var url = 'x_1000748_cls_crash_map.do?sysparm_table=' + g_form.getTableName() +
+        '&sysparm_sys_id=' + g_form.getUniqueValue();
+    window.open(url, '_blank');
+}`,
 })
 
 const mapReview = UiAction({
@@ -275,10 +294,27 @@ const mapReview = UiAction({
         showLink: false,
         showContextMenu: true,
     },
-    workspace: { isConfigurableWorkspace: true, showFormButtonV2: true },
-    script: `action.setRedirectURL(
-    'x_1000748_cls_crash_map.do?sysparm_table=' + current.getTableName() +
-    '&sysparm_sys_id=' + current.getUniqueValue());`,
+    client: {
+        isClient: true,
+        isUi11Compatible: true,
+        isUi16Compatible: true,
+        onClick: 'clsOpenCrashMap()',
+    },
+    workspace: {
+        isConfigurableWorkspace: true,
+        showFormButtonV2: true,
+        clientScriptV2: `function onClick(g_form) {
+    var table = g_form.getTableName ? g_form.getTableName() : '';
+    var sysId = g_form.getUniqueValue ? g_form.getUniqueValue() : g_form.getValue('sys_id');
+    window.open('/x_1000748_cls_crash_map.do?sysparm_table=' + table +
+        '&sysparm_sys_id=' + sysId, '_blank');
+}`,
+    },
+    script: `function clsOpenCrashMap() {
+    var url = 'x_1000748_cls_crash_map.do?sysparm_table=' + g_form.getTableName() +
+        '&sysparm_sys_id=' + g_form.getUniqueValue();
+    window.open(url, '_blank');
+}`,
 })
 
 Record({
