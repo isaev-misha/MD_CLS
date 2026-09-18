@@ -52,5 +52,18 @@
     grReview.setValue('candidate_street', current.getValue('street_name'))
     grReview.setValue('candidate_score', current.getValue('geocode_confidence'))
 
-    grReview.insert()
+    var reviewSysId = grReview.insert()
+
+    // Point the crash at its review so the form can offer a one-click jump to the
+    // work. setWorkflow(false) because this is bookkeeping, not a state change:
+    // without it this update re-enters this very rule, and only the duplicate
+    // guard above stops it.
+    if (reviewSysId) {
+        var grCrash = new GlideRecord('x_1000748_cls_crash')
+        if (grCrash.get(crashSysId)) {
+            grCrash.setValue('geocode_review', reviewSysId)
+            grCrash.setWorkflow(false)
+            grCrash.update()
+        }
+    }
 })(current, previous)

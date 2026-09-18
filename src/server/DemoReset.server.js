@@ -141,6 +141,7 @@ DemoReset.prototype = {
             'geocode_confidence',
             'geocode_method',
             'geocode_message',
+            'geocode_review',
         ]
     },
 
@@ -158,6 +159,7 @@ DemoReset.prototype = {
         // Reviews first — see the note on ordering at the top of this file.
         this._restoreReviews(outcome)
         this._restoreBacklog(outcome)
+        this._relinkReviews()
 
         return outcome
     },
@@ -242,6 +244,33 @@ DemoReset.prototype = {
             grCrash.setValue('geocode_state', 'needs_review')
             grCrash.update()
             outcome.restored++
+        }
+    },
+
+    /**
+     * Re-point every crash at its own open review.
+     *
+     * Runs last on purpose: _restoreBacklog clears the crash fields, geocode_review
+     * among them, so a link written any earlier would be wiped on the way past.
+     * setWorkflow(false) keeps this out of Create geocode review.
+     */
+    _relinkReviews: function () {
+        var grReview = new GlideRecord('x_1000748_cls_geocode_review')
+        grReview.addQuery('active', true)
+        grReview.query()
+
+        while (grReview.next()) {
+            var crashSysId = grReview.getValue('crash')
+            if (!crashSysId) {
+                continue
+            }
+
+            var grCrash = new GlideRecord('x_1000748_cls_crash')
+            if (grCrash.get(crashSysId)) {
+                grCrash.setValue('geocode_review', grReview.getUniqueValue())
+                grCrash.setWorkflow(false)
+                grCrash.update()
+            }
         }
     },
 

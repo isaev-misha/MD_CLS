@@ -1,4 +1,12 @@
-import { Table, StringColumn, ChoiceColumn, IntegerColumn, FloatColumn, DateTimeColumn } from '@servicenow/sdk/core'
+import {
+    Table,
+    StringColumn,
+    ChoiceColumn,
+    IntegerColumn,
+    FloatColumn,
+    DateTimeColumn,
+    ReferenceColumn,
+} from '@servicenow/sdk/core'
 
 /**
  * Crash record.
@@ -92,6 +100,16 @@ export const x_1000748_cls_crash = Table({
             scale: 2,
             readOnly: true,
             hint: 'Distance from the input point to the snapped route. A large value means the point was nowhere near a road.',
+        }),
+        // The review task opened for this crash, so a reader can get to the work
+        // from the data in one click. `CreateGeocodeReview` sets it; the review's
+        // own `crash` field is the other half of the pair and stays the
+        // authoritative link — this one is navigation, which is why it is read-only.
+        geocode_review: ReferenceColumn({
+            label: 'Geocode review',
+            referenceTable: 'x_1000748_cls_geocode_review',
+            readOnly: true,
+            hint: 'The open review task for this crash, if the geocoder handed it to a person',
         }),
         geocode_message: StringColumn({
             label: 'Geocode message',

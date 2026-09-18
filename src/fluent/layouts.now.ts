@@ -168,6 +168,7 @@ export const crashForm = Form({
                     rightElements: [
                         { field: 'geocode_state', type: 'table_field' },
                         { field: 'geocode_confidence', type: 'table_field' },
+                        { field: 'geocode_review', type: 'table_field' },
                     ],
                 },
             ],

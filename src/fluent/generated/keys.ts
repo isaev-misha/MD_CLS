@@ -706,6 +706,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '13a462a88fb94b71bee510aacb3cf5b4'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_review'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '13ed688d66644d33855f5f7a04401ce8'
                         key: {
@@ -1666,6 +1674,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_element'
+                        id: '64ddda73ff434a7f965da83523e3174a'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: '.end_split'
+                            position: '7'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '65cf29c4ab164576b4bfe274f1671bd8'
                         key: {
@@ -2137,6 +2167,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '894f7c1118aa4d198ca6c9a644526501'
+                        key: {
+                            name: 'x_1000748_cls_crash'
+                            element: 'geocode_review'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'ua_table_licensing_config'
                         id: '89c2ebeb803b4a739937f855fe824ed8'
                         key: {
@@ -2146,6 +2185,7 @@ declare global {
                     {
                         table: 'sys_ui_element'
                         id: '8ab2da4547a842619316d8f885903a77'
+                        deleted: true
                         key: {
                             sys_ui_section: {
                                 id: '5ab4e55f3d064dce87714fee51e5740e'
@@ -3261,6 +3301,28 @@ declare global {
                                     sys_domain: 'global'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_element'
+                        id: 'f3a3771e7159412490dea55b7b00e740'
+                        key: {
+                            sys_ui_section: {
+                                id: '5ab4e55f3d064dce87714fee51e5740e'
+                                key: {
+                                    name: 'x_1000748_cls_crash'
+                                    caption: 'Crash'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                }
+                            }
+                            element: 'geocode_review'
+                            position: '6'
                         }
                     },
                     {
